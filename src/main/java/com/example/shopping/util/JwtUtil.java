@@ -1,5 +1,8 @@
 package com.example.shopping.util;
 
+import com.example.shopping.enums.ProfileRole;
+import com.example.shopping.exp.MethodNotAllowedException;
+import io.jsonwebtoken.*;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.stereotype.Service;
 
@@ -46,7 +49,7 @@ public class JwtUtil {
         return jwtBuilder.compact();
     }
 
-    public static JwtDTO decode(String token) {
+    public static JwtDto decode(String token) {
 
         JwtParser jwtParser = Jwts.parser();
         jwtParser.setSigningKey(secretKey);
@@ -55,17 +58,17 @@ public class JwtUtil {
         String email = (String) claims.get("email");
         String role = (String) claims.get("role");
         ProfileRole profileRole = ProfileRole.valueOf(role);
-        return new JwtDTO(email, profileRole);
+        return new JwtDto(email, profileRole);
 
     }
-    public static JwtDTO decodeToUpdateEmail(String token) {
+    public static JwtDto decodeToUpdateEmail(String token) {
         JwtParser jwtParser = Jwts.parser();
         jwtParser.setSigningKey(secretKey);
         Jws<Claims> jws = jwtParser.parseClaimsJws(token);
         Claims claims = jws.getBody();
         String email = (String) claims.get("email");
         Integer pId = (Integer) claims.get("id");
-        return new JwtDTO(email, pId);
+        return new JwtDto(email, pId);
     }
 
     public static String decodeEmailVerification(String token) {
@@ -81,16 +84,16 @@ public class JwtUtil {
         throw new MethodNotAllowedException("Jwt exception");
     }
 
-    public static JwtDTO getJwtDTO(String authorization) {
+    public static JwtDto getJwtDto(String authorization) {
         String[] str = authorization.split(" ");
         String jwt = str[1];
         return JwtUtil.decode(jwt);
     }
 
-    public static JwtDTO getJwtDTO(String authorization, ProfileRole... roleList) {
+    public static JwtDto getJwtDto(String authorization, ProfileRole... roleList) {
         String[] str = authorization.split(" ");
         String jwt = str[1];
-        JwtDTO jwtDTO = JwtUtil.decode(jwt);
+        JwtDto jwtDTO = JwtUtil.decode(jwt);
         boolean roleFound = false;
         for (ProfileRole role : roleList) {
             if (jwtDTO.getRole().equals(role)) {

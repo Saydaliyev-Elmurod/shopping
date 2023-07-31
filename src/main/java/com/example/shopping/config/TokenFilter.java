@@ -1,5 +1,7 @@
 package com.example.shopping.config;
+import com.example.shopping.util.JwtDto;
 import com.example.shopping.util.JwtUtil;
+import io.jsonwebtoken.JwtException;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -46,7 +48,7 @@ import java.util.Arrays;
                 return;
             }
             String token = authHeader.substring(7);
-            JwtDTO jwtDto ;
+            JwtDto jwtDto ;
             try {
                 jwtDto = JwtUtil.decode(token);
                 UserDetails userDetails = userDetailsService.loadUserByUsername(jwtDto.getMail());

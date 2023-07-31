@@ -1,7 +1,7 @@
 package com.example.shopping.config.security;
 
-import com.example.youtube.entity.ProfileEntity;
-import com.example.youtube.repository.ProfileRepository;
+import com.example.shopping.profile.ProfileEntity;
+import com.example.shopping.profile.ProfileRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

@@ -1,5 +1,5 @@
 package com.example.shopping.config;
-import com.example.youtube.util.MD5Util;
+import com.example.shopping.util.MD5Util;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpMethod;

@@ -1,5 +1,7 @@
 package com.example.shopping.config.security;
 
+import com.example.shopping.enums.ProfileRole;
+import com.example.shopping.profile.ProfileEntity;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -50,7 +52,7 @@ public class CustomUserDetails implements UserDetails {
 
     @Override
     public boolean isCredentialsNonExpired() {
-        return profileEntity.getStatus().equals(GeneralStatus.ROLE_ACTIVE);
+        return true;
     }
 
     @Override
