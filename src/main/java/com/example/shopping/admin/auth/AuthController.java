@@ -1,13 +1,5 @@
 package com.example.shopping.admin.auth;
 
-import com.example.shopping.payload.JwtResponse;
-import com.example.shopping.payload.LoginRequest;
-import com.example.shopping.payload.MessageResponse;
-import com.example.shopping.payload.SignupRequest;
-import com.example.shopping.role.ERole;
-import com.example.shopping.role.Role;
-import com.example.shopping.role.RoleRepository;
-import com.example.shopping.user.UserRepository;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;

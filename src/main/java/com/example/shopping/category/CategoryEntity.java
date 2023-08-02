@@ -1,5 +1,6 @@
 package com.example.shopping.category;
 
+import com.example.shopping.profile.ProfileEntity;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -18,5 +19,11 @@ public class CategoryEntity {
     private String nameRu;
     @Column
     private String nameEng;
-
+    @Column
+    private Boolean deleted = false;
+    @Column(name = "user_id")
+    private Integer userId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id",updatable = false,insertable = false)
+    private ProfileEntity profile;
 }
