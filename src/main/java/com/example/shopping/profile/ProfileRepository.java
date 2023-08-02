@@ -1,5 +1,4 @@
 package com.example.shopping.profile;
-import com.example.youtube.entity.ProfileEntity;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;

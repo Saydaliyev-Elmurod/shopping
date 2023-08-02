@@ -22,6 +22,9 @@ repositories {
 }
 
 dependencies {
+	implementation("javax.xml.bind:jaxb-api:2.3.0-b170201.1204")
+	implementation("io.jsonwebtoken:jjwt-api:0.11.5")
+	implementation("io.jsonwebtoken:jjwt:0.9.1")
 	implementation("org.springframework.boot:spring-boot-starter-data-jpa")
 	implementation("org.springframework.boot:spring-boot-starter-mail")
 	implementation("org.springframework.boot:spring-boot-starter-security")

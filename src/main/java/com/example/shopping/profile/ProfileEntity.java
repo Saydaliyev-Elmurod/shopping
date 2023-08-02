@@ -1,6 +1,7 @@
 package com.example.shopping.profile;
 
 
+import com.example.shopping.enums.GeneralStatus;
 import com.example.shopping.enums.ProfileRole;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -30,7 +31,9 @@ public class ProfileEntity {
     private Boolean visible = Boolean.TRUE;
     @Column(name = "created_date")
     private LocalDateTime createdDate = LocalDateTime.now();
-
+    @Enumerated(EnumType.STRING)
+    @Column(name = "status")
+    private GeneralStatus status;
 
     @Column(name = "photo_id")
     private String photoId;
