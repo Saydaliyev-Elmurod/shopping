@@ -24,9 +24,9 @@ public class CategoryService {
 
     private CategoryEntity toEntity(CategoryDto dto) {
         CategoryEntity entity = new CategoryEntity();
-        entity.setNameEng(dto.getName().getNameEng());
-        entity.setNameRu(dto.getName().getNameRu());
-        entity.setNameUz(dto.getName().getNameUz());
+        entity.setNameEng(dto.getName().getEng());
+        entity.setNameRu(dto.getName().getRu());
+        entity.setNameUz(dto.getName().getUz());
         entity.setUserId(dto.getUserId());
         return entity;
     }
@@ -43,9 +43,9 @@ public class CategoryService {
         CategoryDto dto = new CategoryDto();
         dto.setId(entity.getId());
         TextModel name = new TextModel();
-        name.setNameEng(entity.getNameEng());
-        name.setNameRu(entity.getNameRu());
-        name.setNameUz(entity.getNameUz());
+        name.setEng(entity.getNameEng());
+        name.setRu(entity.getNameRu());
+        name.setUz(entity.getNameUz());
         dto.setName(name);
         return dto;
     }

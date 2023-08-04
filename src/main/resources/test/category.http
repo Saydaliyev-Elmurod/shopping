@@ -5,9 +5,9 @@ Content-Type: application/json
 
 {
   "name": {
-    "nameUz": "Naushnik",
-    "nameRu": "Ru Naushnik",
-    "nameEng": "Eng Naushnik"
+    "uz": "Naushnik",
+    "ru": "Ru Naushnik",
+    "eng": "Eng Naushnik"
   }
 }
 
