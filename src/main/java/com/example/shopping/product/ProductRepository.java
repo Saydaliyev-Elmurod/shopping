@@ -11,6 +11,7 @@ interface ProductRepository extends JpaRepository<ProductEntity, Integer> {
     Page<ProductEntity> findAllByUserIdAndCategoryIdAndDeletedFalse(Integer userId, Integer categoryId, Pageable pageable);
 
     Optional<ProductEntity> findByDeletedFalseAndId(Integer id);
+    Optional<ProductEntity> findById(Integer id);
 
     @Query(" update ProductEntity set deleted = ?2 where id = ?1")
     Integer updateStatus(Integer id, Boolean status);

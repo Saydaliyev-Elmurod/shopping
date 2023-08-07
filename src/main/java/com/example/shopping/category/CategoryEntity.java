@@ -20,6 +20,8 @@ public class CategoryEntity {
     @Column
     private String nameEng;
     @Column
+    private String image;
+    @Column
     private Boolean deleted = false;
     @Column(name = "user_id")
     private Integer userId;

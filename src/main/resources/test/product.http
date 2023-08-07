@@ -1,7 +1,7 @@
 ### add
 
 POST http://localhost:8080/private/product/
-Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJpYXQiOjE2OTExNTA4MTMsImVtYWlsIjoic2F5ZGFsaXlldmVsbXVyb2QwMUBnbWFpbC5jb20iLCJyb2xlIjoiUk9MRV9VU0VSIiwiZXhwIjoxNjkxMjM3MjEzLCJpc3MiOiJLdW51eiB0ZXN0IHBvcnRhbGkifQ.SScaLffV5G4HihFC8FlCOi4uAj98RGs3O0erlsvgyyveucLBvt7rGxosBVSH_9Iuvkc7Z3PTUKD0MNYdO-EvEA
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJpYXQiOjE2OTE0MjkzMzcsImVtYWlsIjoic2F5ZGFsaXlldmVsbXVyb2QwMUBnbWFpbC5jb20iLCJyb2xlIjoiUk9MRV9VU0VSIiwiZXhwIjoxNjkxNTE1NzM3LCJpc3MiOiJLdW51eiB0ZXN0IHBvcnRhbGkifQ.nuWhbiHWfHSO2MOTxPvQA7T0zormOTU_JlhjEdy2VJTgtPzc9HjBB9YNx2JyTywsdwf8GIivjBa2dYzRj5_pbA
 Content-Type: application/json
 
 {
@@ -16,12 +16,16 @@ Content-Type: application/json
     "uz": " bu telefon",
     "ru": " eta telefon",
     "eng": "this is telefon"
-  }
+  },
+  "images": [
+    "images",
+    "images2"
+  ]
 }
 
 ### get by id
-GET http://localhost:8080/private/product/3
-Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJpYXQiOjE2OTExNTA4MTMsImVtYWlsIjoic2F5ZGFsaXlldmVsbXVyb2QwMUBnbWFpbC5jb20iLCJyb2xlIjoiUk9MRV9VU0VSIiwiZXhwIjoxNjkxMjM3MjEzLCJpc3MiOiJLdW51eiB0ZXN0IHBvcnRhbGkifQ.SScaLffV5G4HihFC8FlCOi4uAj98RGs3O0erlsvgyyveucLBvt7rGxosBVSH_9Iuvkc7Z3PTUKD0MNYdO-EvEA
+GET http://localhost:8080/private/product/8
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJpYXQiOjE2OTE0MjkzMzcsImVtYWlsIjoic2F5ZGFsaXlldmVsbXVyb2QwMUBnbWFpbC5jb20iLCJyb2xlIjoiUk9MRV9VU0VSIiwiZXhwIjoxNjkxNTE1NzM3LCJpc3MiOiJLdW51eiB0ZXN0IHBvcnRhbGkifQ.nuWhbiHWfHSO2MOTxPvQA7T0zormOTU_JlhjEdy2VJTgtPzc9HjBB9YNx2JyTywsdwf8GIivjBa2dYzRj5_pbA
 
 ### get all
 GET http://localhost:8080/private/product/all/1

@@ -17,7 +17,7 @@ public class ProductController {
 
     @GetMapping("{id}")
     public ResponseEntity<?> get(@PathVariable Integer id) {
-        return productService.get(id);
+        return productService.getByIdForUser(id);
     }
 
     @PostMapping("update")
@@ -29,7 +29,7 @@ public class ProductController {
     public ResponseEntity<?> list(@PathVariable Integer id,
                                   @RequestParam(name = "page", defaultValue = "1") Integer page,
                                   @RequestParam(name = "size", defaultValue = "10") Integer size) {
-        return productService.getAll(id, page, size);
+        return productService.getAllByCategory(id, page, size);
     }
 
     @DeleteMapping("id")

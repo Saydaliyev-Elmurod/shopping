@@ -28,6 +28,7 @@ public class CategoryService {
         entity.setNameRu(dto.getName().getRu());
         entity.setNameUz(dto.getName().getUz());
         entity.setUserId(dto.getUserId());
+        entity.setImage(dto.getImage());
         return entity;
     }
 
@@ -46,6 +47,7 @@ public class CategoryService {
         name.setEng(entity.getNameEng());
         name.setRu(entity.getNameRu());
         name.setUz(entity.getNameUz());
+        dto.setImage(entity.getImage());
         dto.setName(name);
         return dto;
     }

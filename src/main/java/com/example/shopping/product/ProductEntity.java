@@ -6,6 +6,8 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.List;
+
 @Getter
 @Setter
 @Entity
@@ -39,5 +41,11 @@ public class ProductEntity {
     @Column
     private String descriptionEng;
     @Column
+    private Boolean isDisable = false;
+    @Column
     private Boolean deleted = false;
+    @ElementCollection(targetClass = String.class, fetch = FetchType.EAGER)
+    @CollectionTable(name = "images", joinColumns = @JoinColumn(name = "product_id"))
+    @Column(name = "image", nullable = false)
+    private List<String> images;
 }

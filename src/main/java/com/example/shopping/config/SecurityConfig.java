@@ -76,15 +76,13 @@ public class SecurityConfig {
         http.csrf().disable().cors().disable();
         http.addFilterBefore(tokenFilter, UsernamePasswordAuthenticationFilter.class);
         http.authorizeHttpRequests()
-                .requestMatchers("/api/auth/signin").permitAll()
-                .requestMatchers("api/auth/signin").permitAll()
+                .requestMatchers("auth/signin").permitAll()
+                .requestMatchers("auth/**").permitAll()
+                .requestMatchers("attach/**").permitAll()
                 .requestMatchers("public/**").permitAll()
 //                .requestMatchers("/api/v1/auth/**").permitAll()
 //                .requestMatchers("/api/v1/auth").permitAll()
                 .requestMatchers(AUTH_WHITELIST).permitAll()
-                .requestMatchers("/api/v1/*/private/admin/**").hasRole("ADMIN")
-                .requestMatchers("/api/v1/*/private/user/**").hasRole("USER")
-                .requestMatchers(HttpMethod.PUT, "/api/v1/playlist/private/*").hasAnyRole("USER","ADMIN")
 //                .requestMatchers(HttpMethod.POST, "/api/v1/comment/private/*").hasAnyRole("USER","ADMIN")
                 .anyRequest()
                 .authenticated();
