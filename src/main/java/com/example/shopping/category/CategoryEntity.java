@@ -28,4 +28,7 @@ public class CategoryEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id",updatable = false,insertable = false)
     private ProfileEntity profile;
+
+    @Column
+    private Boolean isVisible;
 }

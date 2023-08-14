@@ -6,6 +6,7 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Getter
@@ -48,4 +49,7 @@ public class ProductEntity {
     @CollectionTable(name = "images", joinColumns = @JoinColumn(name = "product_id"))
     @Column(name = "image", nullable = false)
     private List<String> images;
+    @Column
+    private LocalDateTime createdDate;
+
 }

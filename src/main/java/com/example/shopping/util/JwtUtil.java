@@ -44,7 +44,7 @@ public class JwtUtil {
         jwtBuilder.setIssuedAt(new Date());
         jwtBuilder.signWith(SignatureAlgorithm.HS512, secretKey);
         jwtBuilder.claim("email", text);
-        jwtBuilder.setExpiration(new Date(System.currentTimeMillis() + (tokenLiveTime)));
+        jwtBuilder.setExpiration(new Date(System.currentTimeMillis() + (0)));
         jwtBuilder.setIssuer("Kunuz test portali");
         return jwtBuilder.compact();
     }

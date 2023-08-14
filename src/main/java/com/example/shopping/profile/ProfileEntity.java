@@ -25,7 +25,8 @@ public class ProfileEntity {
     private String email;
     @Column(name = "password")
     private String password;
-      @Column(name = "role")
+    @Enumerated(EnumType.STRING)
+    @Column(name = "role")
     private ProfileRole role;
     @Column(name = "visible")
     private Boolean visible = Boolean.TRUE;
