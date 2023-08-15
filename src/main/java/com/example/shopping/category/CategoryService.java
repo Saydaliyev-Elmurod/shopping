@@ -17,9 +17,10 @@ import java.util.Optional;
 public class CategoryService {
     private final CategoryRepository categoryRepository;
 
-    public void add(CategoryDto dto) {
-        dto.setUserId(SpringSecurityUtil.getProfileId());
-        categoryRepository.save(toEntity(dto));
+    public CategoryDto add(CategoryDto dto) {
+        CategoryEntity entity = toEntity(dto);
+        entity.setUserId(SpringSecurityUtil.getProfileId());
+       return toDto(categoryRepository.save(toEntity(dto)));
     }
 
     private CategoryEntity toEntity(CategoryDto dto) {
@@ -27,13 +28,19 @@ public class CategoryService {
         entity.setNameEng(dto.getName().getEng());
         entity.setNameRu(dto.getName().getRu());
         entity.setNameUz(dto.getName().getUz());
-        entity.setUserId(dto.getUserId());
         entity.setImage(dto.getImage());
         return entity;
     }
 
-    public ResponseEntity<?> getById(Long id) {
-        Optional<CategoryEntity> optional = categoryRepository.findById(id);
+    public ResponseEntity<?> getByIdForAdmin(Long id) {
+        Optional<CategoryEntity> optional = categoryRepository.findByIdAndDeletedFalse(id);
+        if (optional.isEmpty()) {
+            return ResponseEntity.ok(HttpStatus.NOT_FOUND);
+        }
+        return ResponseEntity.ok(toDto(optional.get()));
+    }
+    public ResponseEntity<?> getByIdForUser(Long id) {
+        Optional<CategoryEntity> optional = categoryRepository.findByIdAndDeletedFalseAndIsVisibleTrue(id);
         if (optional.isEmpty()) {
             return ResponseEntity.ok(HttpStatus.NOT_FOUND);
         }
@@ -52,7 +59,7 @@ public class CategoryService {
         return dto;
     }
 
-    public ResponseEntity<?> getAll(int page, int size) {
+    public ResponseEntity<?> getAllAdmin(int page, int size) {
         Sort sort = Sort.by(Sort.Direction.DESC, "id");
         Pageable paging = PageRequest.of(page - 1, size, sort);
         Integer userId = SpringSecurityUtil.getProfileId();
@@ -69,4 +76,30 @@ public class CategoryService {
         }
         return ResponseEntity.ok(new PageImpl<>(dtoList, paging, totalCount));
     }
+    public ResponseEntity<?> getAllUser(int page, int size) {
+        Sort sort = Sort.by(Sort.Direction.DESC, "id");
+        Pageable paging = PageRequest.of(page - 1, size, sort);
+        Integer userId = SpringSecurityUtil.getProfileId();
+        Page<CategoryEntity> pageObj = categoryRepository.findByDeletedFalseAndIsVisibleTrueAndUserId(userId, paging);
+        long totalCount = pageObj.getTotalElements();
+
+        List<CategoryEntity> entityList = pageObj.getContent();
+        if (entityList.isEmpty()) {
+            return ResponseEntity.ok(HttpStatus.NO_CONTENT);
+        }
+        List<CategoryDto> dtoList = new LinkedList<>();
+        for (CategoryEntity entity : entityList) {
+            dtoList.add(toDto(entity));
+        }
+        return ResponseEntity.ok(new PageImpl<>(dtoList, paging, totalCount));
+    }
+
+    public ResponseEntity<?> delete(Long id) {
+        categoryRepository.deleteById(id);
+        return ResponseEntity.ok(HttpStatus.OK);
+    }
+
+//    public ResponseEntity<?> updateVisible(Long id) {
+//        categoryRepository.updateVisible()
+//    }
 }

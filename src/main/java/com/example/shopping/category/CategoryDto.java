@@ -13,6 +13,5 @@ import lombok.Setter;
 public class CategoryDto {
     private Long id;
     private TextModel name;
-    private Integer userId;
     private String image;
 }
