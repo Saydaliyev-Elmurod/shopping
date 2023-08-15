@@ -17,12 +17,12 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("public/auth")
+@RequestMapping("auth")
 public class AuthController {
     @Autowired
     private AuthService authService;
 
-    @PostMapping("signin")
+    @PostMapping("sign-up")
     public ResponseEntity<?> authenticateUser(@Valid @RequestBody RegisterDto dto) {
       return authService.auth(dto);
     }

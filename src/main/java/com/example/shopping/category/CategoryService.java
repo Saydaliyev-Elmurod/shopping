@@ -20,7 +20,7 @@ public class CategoryService {
     public CategoryDto add(CategoryDto dto) {
         CategoryEntity entity = toEntity(dto);
         entity.setUserId(SpringSecurityUtil.getProfileId());
-       return toDto(categoryRepository.save(toEntity(dto)));
+        return toDto(categoryRepository.save(toEntity(dto)));
     }
 
     private CategoryEntity toEntity(CategoryDto dto) {
@@ -39,6 +39,7 @@ public class CategoryService {
         }
         return ResponseEntity.ok(toDto(optional.get()));
     }
+
     public ResponseEntity<?> getByIdForUser(Long id) {
         Optional<CategoryEntity> optional = categoryRepository.findByIdAndDeletedFalseAndIsVisibleTrue(id);
         if (optional.isEmpty()) {
@@ -62,8 +63,7 @@ public class CategoryService {
     public ResponseEntity<?> getAllAdmin(int page, int size) {
         Sort sort = Sort.by(Sort.Direction.DESC, "id");
         Pageable paging = PageRequest.of(page - 1, size, sort);
-        Integer userId = SpringSecurityUtil.getProfileId();
-        Page<CategoryEntity> pageObj = categoryRepository.findAllByDeletedFalseAndUserId(userId, paging);
+        Page<CategoryEntity> pageObj = categoryRepository.findAllByDeletedFalse( paging);
         long totalCount = pageObj.getTotalElements();
 
         List<CategoryEntity> entityList = pageObj.getContent();
@@ -76,11 +76,12 @@ public class CategoryService {
         }
         return ResponseEntity.ok(new PageImpl<>(dtoList, paging, totalCount));
     }
+
     public ResponseEntity<?> getAllUser(int page, int size) {
         Sort sort = Sort.by(Sort.Direction.DESC, "id");
         Pageable paging = PageRequest.of(page - 1, size, sort);
         Integer userId = SpringSecurityUtil.getProfileId();
-        Page<CategoryEntity> pageObj = categoryRepository.findByDeletedFalseAndIsVisibleTrueAndUserId(userId, paging);
+        Page<CategoryEntity> pageObj = categoryRepository.findByDeletedFalseAndIsVisibleTrue(userId, paging);
         long totalCount = pageObj.getTotalElements();
 
         List<CategoryEntity> entityList = pageObj.getContent();
@@ -99,7 +100,8 @@ public class CategoryService {
         return ResponseEntity.ok(HttpStatus.OK);
     }
 
-//    public ResponseEntity<?> updateVisible(Long id) {
-//        categoryRepository.updateVisible()
-//    }
+    public ResponseEntity<?> updateVisible(Long id) {
+        categoryRepository.updateVisible(id);
+        return ResponseEntity.ok(HttpStatus.OK);
+    }
 }

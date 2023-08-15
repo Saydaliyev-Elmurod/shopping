@@ -9,14 +9,20 @@ import java.util.List;
 import java.util.Optional;
 
 public interface CategoryRepository extends JpaRepository<CategoryEntity, Long> {
-    Page<CategoryEntity> findAllByDeletedFalseAndUserId(Integer userId, Pageable page);
+    Page<CategoryEntity> findAllByDeletedFalse( Pageable page);
 
-    Page<CategoryEntity> findByDeletedFalseAndIsVisibleTrueAndUserId(Integer userId, Pageable pageable);
+    Page<CategoryEntity> findByDeletedFalseAndIsVisibleTrue(Integer userId, Pageable pageable);
 
     Optional<CategoryEntity> findByIdAndDeletedFalse(Long id);
 
     Optional<CategoryEntity> findByIdAndDeletedFalseAndIsVisibleTrue(Long id);
 
-
+    @Query("UPDATE CategoryEntity " +
+            "SET isVisible = CASE " +
+            "  WHEN isVisible = false THEN true " +
+            "  WHEN isVisible = true THEN false " +
+            "END " +
+            "WHERE id = ?1 ")
+    void updateVisible(Long id);
 
 }

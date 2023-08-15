@@ -13,6 +13,6 @@ POST http://localhost:8080/public/auth/login
 Content-Type: application/json
 
 {
-  "email": "saydaliyevelmurod01@gmail.com",
-  "password": "elmurod2203"
+  "email": "admin@gmail.com",
+  "password": "admin123"
 }

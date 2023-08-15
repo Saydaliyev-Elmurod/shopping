@@ -69,21 +69,15 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        // authorization
-        // URL ,API  Permission
-        // /api/v1/article/private/* - MODERATOR
-        // /api/v1/article//private/{id} - POST - MODERATOR
         http.csrf().disable().cors().disable();
         http.addFilterBefore(tokenFilter, UsernamePasswordAuthenticationFilter.class);
         http.authorizeHttpRequests()
-                .requestMatchers("auth/signin").permitAll()
                 .requestMatchers("auth/**").permitAll()
+                .requestMatchers("admin/**").hasAnyRole("ADMIN")
                 .requestMatchers("attach/**").permitAll()
-                .requestMatchers("public/**").permitAll()
-//                .requestMatchers("/api/v1/auth/**").permitAll()
-//                .requestMatchers("/api/v1/auth").permitAll()
+                .requestMatchers("category/**").permitAll()
+                .requestMatchers("product/**").permitAll()
                 .requestMatchers(AUTH_WHITELIST).permitAll()
-//                .requestMatchers(HttpMethod.POST, "/api/v1/comment/private/*").hasAnyRole("USER","ADMIN")
                 .anyRequest()
                 .authenticated();
         return http.build();
