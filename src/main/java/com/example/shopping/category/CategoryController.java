@@ -33,7 +33,7 @@ public class CategoryController {
     @Operation(description = "get by id for user get isVisible true or false ")
     @GetMapping("/{id}")
     public ResponseEntity<?> get(@PathVariable Long id) {
-        return categoryService.getByIdForAdmin(id);
+        return categoryService.getByIdForUser(id);
     }
 
     @ApiResponse(responseCode = "200", content = {@Content(schema = @Schema(implementation = CategoryDto.class))})
@@ -41,7 +41,7 @@ public class CategoryController {
     @Operation(description = "get by id for admin get isVisible true or false ")
     @GetMapping("admin/{id}")
     public ResponseEntity<?> getAdmin(@PathVariable Long id) {
-        return categoryService.getByIdForUser(id);
+        return categoryService.getByIdForAdmin(id);
     }
 
     @ApiResponse(responseCode = "200", content = {@Content(array = @ArraySchema(schema = @Schema(implementation = CategoryDto.class)))})
@@ -59,7 +59,7 @@ public class CategoryController {
     @GetMapping("all")
     public ResponseEntity<?> getAllUser(@RequestParam(value = "page", defaultValue = "1") int page,
                                         @RequestParam(value = "size", defaultValue = "10") int size) {
-        return categoryService.getAllUser(page, size);
+        return categoryService.getAllForUser(page, size);
     }
 
     @ApiResponse(responseCode = "200", content = {@Content()})

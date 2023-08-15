@@ -20,6 +20,7 @@ public class CategoryService {
     public CategoryDto add(CategoryDto dto) {
         CategoryEntity entity = toEntity(dto);
         entity.setUserId(SpringSecurityUtil.getProfileId());
+        entity.setIsVisible(false);
         return toDto(categoryRepository.save(toEntity(dto)));
     }
 
@@ -77,11 +78,10 @@ public class CategoryService {
         return ResponseEntity.ok(new PageImpl<>(dtoList, paging, totalCount));
     }
 
-    public ResponseEntity<?> getAllUser(int page, int size) {
+    public ResponseEntity<?> getAllForUser(int page, int size) {
         Sort sort = Sort.by(Sort.Direction.DESC, "id");
         Pageable paging = PageRequest.of(page - 1, size, sort);
-        Integer userId = SpringSecurityUtil.getProfileId();
-        Page<CategoryEntity> pageObj = categoryRepository.findByDeletedFalseAndIsVisibleTrue(userId, paging);
+        Page<CategoryEntity> pageObj = categoryRepository.findByDeletedFalseAndIsVisibleTrue( paging);
         long totalCount = pageObj.getTotalElements();
 
         List<CategoryEntity> entityList = pageObj.getContent();

@@ -12,7 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 @Tag(name = "Admin Product APIs ", description = "Admin product all API s")
 @SecurityRequirement(name = "online shop ")
-@RequestMapping("private/product")
+@RequestMapping("product")
 @RestController
 @AllArgsConstructor
 public class ProductController {

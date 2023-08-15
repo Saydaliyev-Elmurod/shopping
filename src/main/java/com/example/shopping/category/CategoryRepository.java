@@ -11,7 +11,7 @@ import java.util.Optional;
 public interface CategoryRepository extends JpaRepository<CategoryEntity, Long> {
     Page<CategoryEntity> findAllByDeletedFalse( Pageable page);
 
-    Page<CategoryEntity> findByDeletedFalseAndIsVisibleTrue(Integer userId, Pageable pageable);
+    Page<CategoryEntity> findByDeletedFalseAndIsVisibleTrue( Pageable pageable);
 
     Optional<CategoryEntity> findByIdAndDeletedFalse(Long id);
 
