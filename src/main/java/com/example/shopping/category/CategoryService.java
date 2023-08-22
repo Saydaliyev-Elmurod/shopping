@@ -21,7 +21,7 @@ public class CategoryService {
         CategoryEntity entity = toEntity(dto);
         entity.setUserId(SpringSecurityUtil.getProfileId());
         entity.setIsVisible(false);
-        return toDto(categoryRepository.save(toEntity(dto)));
+        return toDto(categoryRepository.save(entity));
     }
 
     private CategoryEntity toEntity(CategoryDto dto) {
@@ -33,7 +33,7 @@ public class CategoryService {
         return entity;
     }
 
-    public ResponseEntity<?> getByIdForAdmin(Long id) {
+    public ResponseEntity<?> getByIdForAdmin(Integer id) {
         Optional<CategoryEntity> optional = categoryRepository.findByIdAndDeletedFalse(id);
         if (optional.isEmpty()) {
             return ResponseEntity.ok(HttpStatus.NOT_FOUND);
@@ -41,7 +41,7 @@ public class CategoryService {
         return ResponseEntity.ok(toDto(optional.get()));
     }
 
-    public ResponseEntity<?> getByIdForUser(Long id) {
+    public ResponseEntity<?> getByIdForUser(Integer id) {
         Optional<CategoryEntity> optional = categoryRepository.findByIdAndDeletedFalseAndIsVisibleTrue(id);
         if (optional.isEmpty()) {
             return ResponseEntity.ok(HttpStatus.NOT_FOUND);
@@ -58,6 +58,7 @@ public class CategoryService {
         name.setUz(entity.getNameUz());
         dto.setImage(entity.getImage());
         dto.setName(name);
+        dto.setIsVisible(entity.getIsVisible());
         return dto;
     }
 
@@ -95,13 +96,12 @@ public class CategoryService {
         return ResponseEntity.ok(new PageImpl<>(dtoList, paging, totalCount));
     }
 
-    public ResponseEntity<?> delete(Long id) {
+    public ResponseEntity<?> delete(Integer id) {
         categoryRepository.deleteById(id);
         return ResponseEntity.ok(HttpStatus.OK);
     }
 
     public ResponseEntity<?> updateVisible(Long id) {
-        categoryRepository.updateVisible(id);
-        return ResponseEntity.ok(HttpStatus.OK);
+        return ResponseEntity.ok( categoryRepository.updateVisible(id)==1?HttpStatus.OK:HttpStatus.NOT_FOUND);
     }
 }

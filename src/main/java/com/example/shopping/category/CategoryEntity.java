@@ -12,7 +12,7 @@ import lombok.Setter;
 public class CategoryEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Integer id;
     @Column
     private String nameUz;
     @Column

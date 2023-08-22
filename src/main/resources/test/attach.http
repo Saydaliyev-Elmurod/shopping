@@ -1,0 +1,17 @@
+POST http://localhost:8080/admin/attach/public/upload
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJpYXQiOjE2OTIyMDcxODcsImVtYWlsIjoiYWRtaW5AZ21haWwuY29tIiwicm9sZSI6IlJPTEVfQURNSU4iLCJleHAiOjE2OTIyOTM1ODcsImlzcyI6Ikt1bnV6IHRlc3QgcG9ydGFsaSJ9.Uu4VoHiF3ZjlwHhGXe3ysG04LKkjmiFZ4ekr_wWZw6blozdrU5CUvliy5LbQfu9YR8mgJIlm6IuunPaC9BkdxA
+Content-Type: multipart/form-data; boundary=WebAppBoundary
+
+--WebAppBoundary
+Content-Disposition: form-data; name="file"; filename="untitled.jpeg"
+
+>C:\Users\Элмурод\Downloads
+
+### sdfg
+GET localhost:8080/attach/open/ab8711d2-3448-4efe-8b32-d027124bc403.png
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJpYXQiOjE2OTIyMDcxODcsImVtYWlsIjoiYWRtaW5AZ21haWwuY29tIiwicm9sZSI6IlJPTEVfQURNSU4iLCJleHAiOjE2OTIyOTM1ODcsImlzcyI6Ikt1bnV6IHRlc3QgcG9ydGFsaSJ9.Uu4VoHiF3ZjlwHhGXe3ysG04LKkjmiFZ4ekr_wWZw6blozdrU5CUvliy5LbQfu9YR8mgJIlm6IuunPaC9BkdxA
+
+
+### jdscd
+GET http://localhost:8080/attach/open/ab8711d2-3448-4efe-8b32-d027124bc403
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJpYXQiOjE2OTIyMDcxODcsImVtYWlsIjoiYWRtaW5AZ21haWwuY29tIiwicm9sZSI6IlJPTEVfQURNSU4iLCJleHAiOjE2OTIyOTM1ODcsImlzcyI6Ikt1bnV6IHRlc3QgcG9ydGFsaSJ9.Uu4VoHiF3ZjlwHhGXe3ysG04LKkjmiFZ4ekr_wWZw6blozdrU5CUvliy5LbQfu9YR8mgJIlm6IuunPaC9BkdxA

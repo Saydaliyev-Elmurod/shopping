@@ -35,7 +35,7 @@ public class FilterService {
             dto.setName(new TextModel(entity.getNameUz(), entity.getNameRu(), entity.getNameEng()));
             dto.setCost(entity.getCost());
             dto.setImages(entity.getImages());
-            dto.setIsDisable(entity.getIsDisable());
+            dto.setIsVisible(entity.getIsVisible());
             dto.setDescription(new TextModel(entity.getDescriptionUz(), entity.getDescriptionRu(), entity.getDescriptionEng()));
             return dto;
     }

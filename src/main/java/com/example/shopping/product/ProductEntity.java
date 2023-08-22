@@ -42,7 +42,7 @@ public class ProductEntity {
     @Column
     private String descriptionEng;
     @Column
-    private Boolean isDisable = false;
+    private Boolean isVisible = false;
     @Column
     private Boolean deleted = false;
     @ElementCollection(targetClass = String.class, fetch = FetchType.EAGER)

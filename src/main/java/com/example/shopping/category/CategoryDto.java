@@ -11,7 +11,8 @@ import lombok.Setter;
 @Getter
 @Setter
 public class CategoryDto {
-    private Long id;
+    private Integer id;
     private TextModel name;
     private String image;
+    private Boolean isVisible;
 }

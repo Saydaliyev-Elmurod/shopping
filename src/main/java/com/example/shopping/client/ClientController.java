@@ -15,7 +15,7 @@ public class ClientController {
     public ResponseEntity<?> list(@PathVariable Integer categoryId,
                                   @RequestParam(name = "page", defaultValue = "1") Integer page,
                                   @RequestParam(name = "size", defaultValue = "10") Integer size) {
-        return productService.getAllByCategory(categoryId, page, size);
+        return productService.getAllByCategoryForAdmin(categoryId, page, size);
     }
 
     @GetMapping("{id}")
