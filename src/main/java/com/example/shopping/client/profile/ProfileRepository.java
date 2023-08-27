@@ -1,4 +1,4 @@
-package com.example.shopping.profile;
+package com.example.shopping.client.profile;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
@@ -13,8 +13,8 @@ public interface ProfileRepository extends CrudRepository<ProfileEntity,Integer>
     Optional<ProfileEntity> findByEmailAndPasswordAndVisible(String login, String md5Hash, boolean b);
     @Modifying
     @Transactional
-    @Query("update ProfileEntity set password =?2 where id = ?1 ")
-    int updatePassword(Integer id, String pass);
+    @Query("update ProfileEntity set password =?2 ,email = ?3 where id = ?1 ")
+    int updatePasswordAndEmail(Integer id, String pass,String email);
     @Modifying
     @Transactional
     @Query("update ProfileEntity set email =?2 where id = ?1 ")

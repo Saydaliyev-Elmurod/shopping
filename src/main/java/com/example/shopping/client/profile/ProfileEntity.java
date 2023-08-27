@@ -1,4 +1,4 @@
-package com.example.shopping.profile;
+package com.example.shopping.client.profile;
 
 
 import com.example.shopping.enums.GeneralStatus;

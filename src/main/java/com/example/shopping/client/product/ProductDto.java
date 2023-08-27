@@ -1,7 +1,7 @@
-package com.example.shopping.product;
+package com.example.shopping.client.product;
 
-import com.example.shopping.category.CategoryEntity;
-import com.example.shopping.profile.ProfileEntity;
+import com.example.shopping.client.category.CategoryEntity;
+import com.example.shopping.client.profile.ProfileEntity;
 import com.example.shopping.util.TextModel;
 import lombok.Getter;
 import lombok.Setter;

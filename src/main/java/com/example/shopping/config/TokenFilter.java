@@ -39,7 +39,6 @@ import java.util.Arrays;
                                         HttpServletResponse response,
                                         FilterChain filterChain) throws ServletException, IOException {
             System.out.println("doFilter method");
-
             final String authHeader = request.getHeader("Authorization");
 
             if (authHeader == null || !authHeader.startsWith("Bearer ")) {
@@ -63,7 +62,7 @@ import java.util.Arrays;
             } catch (JwtException e) {
                 response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
                 response.setHeader("Message", "Token Not Valid");
-                return;
+
             }
         }
     }

@@ -1,6 +1,6 @@
-package com.example.shopping.product;
+package com.example.shopping.client.product;
 
-import com.example.shopping.category.CategoryRepository;
+import com.example.shopping.client.category.CategoryRepository;
 import com.example.shopping.exp.AppBadRequestException;
 import com.example.shopping.exp.ItemNotFoundException;
 import com.example.shopping.util.SpringSecurityUtil;

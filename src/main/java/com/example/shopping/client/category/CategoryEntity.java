@@ -1,6 +1,6 @@
-package com.example.shopping.category;
+package com.example.shopping.client.category;
 
-import com.example.shopping.profile.ProfileEntity;
+import com.example.shopping.client.profile.ProfileEntity;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;

@@ -2,7 +2,7 @@ package com.example.shopping.config.security;
 
 import com.example.shopping.enums.GeneralStatus;
 import com.example.shopping.enums.ProfileRole;
-import com.example.shopping.profile.ProfileEntity;
+import com.example.shopping.client.profile.ProfileEntity;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;

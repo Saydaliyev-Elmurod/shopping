@@ -1,18 +1,16 @@
-package com.example.shopping.product;
+package com.example.shopping.client.product;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
-import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @Tag(name = "Client Product APIs ", description = "Client product all API s")
-@SecurityRequirement(name = "online shop ")
 @RequestMapping("product")
 @RestController
 @AllArgsConstructor
@@ -30,7 +28,7 @@ public class ProductController {
     }
 
     @ApiResponse(responseCode = "200", content = {@Content(array = @ArraySchema(schema = @Schema(implementation = ProductDto.class)))})
-    @Operation(description = "get by id user")
+    @Operation(description = "get by id  for user")
     @GetMapping("{id}")
     public ResponseEntity<?> updateStatus(@PathVariable Integer id) {
         return productService.getByIdForUser(id);

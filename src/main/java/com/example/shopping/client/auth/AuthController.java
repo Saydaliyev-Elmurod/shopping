@@ -1,38 +1,36 @@
-package com.example.shopping.admin.auth;
+package com.example.shopping.client.auth;
 
 import jakarta.validation.Valid;
-import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
-
+@Slf4j
 @RestController
 @RequestMapping("auth")
 public class AuthController {
+    private static Logger logger = LoggerFactory.getLogger(AuthController.class);
+
     @Autowired
     private AuthService authService;
 
     @PostMapping("sign-up")
     public ResponseEntity<?> authenticateUser(@Valid @RequestBody RegisterDto dto) {
-      return authService.auth(dto);
+        return authService.auth(dto);
     }
 
     @GetMapping("verification/{jwt}")
     public ResponseEntity<?> emailVerification(@PathVariable("jwt") String jwt) {
         return ResponseEntity.ok(authService.emailVerification(jwt));
     }
+
     @PostMapping("login")
     public ResponseEntity<?> login(@RequestBody @Valid AuthDto dto) {
+        logger.info(dto.getPassword().toString());
+        logger.info(dto.getEmail().toString());
         return ResponseEntity.ok(authService.login(dto));
     }
 }

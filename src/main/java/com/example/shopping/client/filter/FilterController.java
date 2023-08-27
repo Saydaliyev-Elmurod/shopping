@@ -1,4 +1,4 @@
-package com.example.shopping.product.filter;
+package com.example.shopping.client.filter;
 
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;

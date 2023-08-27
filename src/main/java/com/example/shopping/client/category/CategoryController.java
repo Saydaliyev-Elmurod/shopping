@@ -1,11 +1,10 @@
-package com.example.shopping.category;
+package com.example.shopping.client.category;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
-import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -20,7 +19,7 @@ public class CategoryController {
     private final CategoryService categoryService;
     @ApiResponse(responseCode = "200", content = {@Content(schema = @Schema(implementation = CategoryDto.class))})
     @ApiResponse(responseCode = "404", content = {@Content(schema = @Schema)}, description = "Not found")
-    @Operation(description = "get by id for user get isVisible true or false ")
+    @Operation(description = "get by id for user get isVisible true")
     @GetMapping("/{id}")
     public ResponseEntity<?> get(@PathVariable Integer id) {
         return categoryService.getByIdForUser(id);

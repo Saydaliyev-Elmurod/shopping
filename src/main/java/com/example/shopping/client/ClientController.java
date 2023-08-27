@@ -1,6 +1,6 @@
 package com.example.shopping.client;
 
-import com.example.shopping.product.ProductService;
+import com.example.shopping.client.product.ProductService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

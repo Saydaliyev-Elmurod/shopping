@@ -1,7 +1,6 @@
-package com.example.shopping.product.filter;
+package com.example.shopping.client.filter;
 
-import com.example.shopping.product.ProductDto;
-import com.example.shopping.product.ProductEntity;
+import com.example.shopping.client.product.ProductEntity;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.Query;
 import lombok.AllArgsConstructor;
@@ -9,13 +8,11 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Repository;
 
-import javax.swing.text.html.parser.Entity;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 
 @Repository
 @AllArgsConstructor
@@ -27,9 +24,9 @@ public class FilterRepository {
         StringBuilder builder = new StringBuilder();
         builder.append("from ProductEntity  where");
         int x = 0;
-        if (dto.getCategoryId() != null) {
+        if (dto.getCategoryName() != null) {
             builder.append(" and categoryId = ?");
-            map.put(++x, dto.getCategoryId());
+            map.put(++x, dto.getCategoryName());
         }
         if (dto.getName() != null) {
             builder.append(" and nameEng ilike ? and nameRu ilike ? and " +

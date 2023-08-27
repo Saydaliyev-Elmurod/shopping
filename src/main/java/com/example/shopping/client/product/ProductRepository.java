@@ -1,4 +1,4 @@
-package com.example.shopping.product;
+package com.example.shopping.client.product;
 
 import jakarta.transaction.Transactional;
 import org.springframework.data.domain.Page;

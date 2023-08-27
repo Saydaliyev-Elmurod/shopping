@@ -75,8 +75,10 @@ public class SecurityConfig {
         http.addFilterBefore(tokenFilter, UsernamePasswordAuthenticationFilter.class);
         http.authorizeHttpRequests()
                 .requestMatchers("auth/**").permitAll()
+                .requestMatchers("/**").permitAll()
+                .requestMatchers("auth/login").permitAll()
                 .requestMatchers("admin/**").hasAnyRole("ADMIN")
-                .requestMatchers("attach/**").permitAll()
+                .requestMatchers("attach/open/**").permitAll()
                 .requestMatchers("category/**").permitAll()
                 .requestMatchers("product/**").permitAll()
                 .requestMatchers(AUTH_WHITELIST).permitAll()

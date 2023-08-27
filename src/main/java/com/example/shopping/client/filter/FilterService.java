@@ -1,7 +1,7 @@
-package com.example.shopping.product.filter;
+package com.example.shopping.client.filter;
 
-import com.example.shopping.product.ProductDto;
-import com.example.shopping.product.ProductEntity;
+import com.example.shopping.client.product.ProductDto;
+import com.example.shopping.client.product.ProductEntity;
 import com.example.shopping.util.TextModel;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;

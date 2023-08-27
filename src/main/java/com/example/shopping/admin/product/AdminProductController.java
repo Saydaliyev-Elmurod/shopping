@@ -1,12 +1,13 @@
 package com.example.shopping.admin.product;
 
-import com.example.shopping.product.ProductDto;
-import com.example.shopping.product.ProductService;
+import com.example.shopping.client.product.ProductDto;
+import com.example.shopping.client.product.ProductService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("admin/product")
 @RestController
 @AllArgsConstructor
+@SecurityRequirement(name = "online shop ")
 public class AdminProductController {
     private final ProductService productService;
 

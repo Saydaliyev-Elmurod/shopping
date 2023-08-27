@@ -1,4 +1,4 @@
-package com.example.shopping.admin.auth;
+package com.example.shopping.client.auth;
 
 import com.example.shopping.enums.ProfileRole;
 import lombok.Getter;

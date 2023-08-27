@@ -1,4 +1,4 @@
-package com.example.shopping.category;
+package com.example.shopping.client.category;
 
 import com.example.shopping.util.TextModel;
 import jakarta.persistence.Column;

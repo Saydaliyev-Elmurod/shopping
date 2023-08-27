@@ -1,4 +1,4 @@
-package com.example.shopping.admin.auth;
+package com.example.shopping.client.auth;
 
 import com.example.shopping.enums.GeneralStatus;
 import com.example.shopping.enums.ProfileRole;
@@ -6,10 +6,11 @@ import com.example.shopping.exp.AppBadRequestException;
 import com.example.shopping.exp.ItemNotFoundException;
 import com.example.shopping.exp.MethodNotAllowedException;
 import com.example.shopping.mail.MailSenderService;
-import com.example.shopping.profile.ProfileEntity;
-import com.example.shopping.profile.ProfileRepository;
+import com.example.shopping.client.profile.ProfileEntity;
+import com.example.shopping.client.profile.ProfileRepository;
 import com.example.shopping.util.JwtUtil;
 import com.example.shopping.util.MD5Util;
+import com.example.shopping.util.SpringSecurityUtil;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -50,6 +51,7 @@ public class AuthService {
         String s = "Verification link was send to email: " + registerDto.getEmail();
         return ResponseEntity.ok(s);
     }
+
     public Object emailVerification(String jwt) {
         String email = JwtUtil.decodeEmailVerification(jwt);
         Optional<ProfileEntity> optional = profileRepository.findByEmail(email);
@@ -64,6 +66,7 @@ public class AuthService {
         profileRepository.save(entity);
         return new String("Registration Done");
     }
+
     public AuthResponseDto login(AuthDto dto) {
         Optional<ProfileEntity> optional = profileRepository.findByEmailAndPasswordAndVisible(
                 dto.getEmail(),
@@ -81,5 +84,11 @@ public class AuthService {
         responseDTO.setRole(entity.getRole());
         responseDTO.setJwt(JwtUtil.encode(entity.getEmail(), entity.getRole()));
         return responseDTO;
+    }
+
+    public ResponseEntity updateAdmin(AuthDto authDto) {
+        Integer adminId = SpringSecurityUtil.getProfileId();
+        Integer rs = profileRepository.updatePasswordAndEmail(adminId, authDto.getPassword(), authDto.getEmail());
+        return ResponseEntity.ok(rs==1);
     }
 }

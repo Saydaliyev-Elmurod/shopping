@@ -1,8 +1,8 @@
 package com.example.shopping.admin.category;
 
 
-import com.example.shopping.category.CategoryDto;
-import com.example.shopping.category.CategoryService;
+import com.example.shopping.client.category.CategoryDto;
+import com.example.shopping.client.category.CategoryService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Content;

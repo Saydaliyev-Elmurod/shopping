@@ -29,8 +29,8 @@ public class AttachService {
     private AttachRepository attachRepository;
     @Value("${folderName}")
     private String folderName;
-    @Value("$PATH")
-    private String path="";
+    @Value("${PATH}")
+    private String path = "";
     @Value("${server.host}")
     private String domainName;
 
@@ -56,7 +56,9 @@ public class AttachService {
             Path path1 = Paths.get(path + "/" + folderName + "/" + pathFolder + "/" + attachEntity.getId() + "." + extension);
             // attaches/2023/04/26/uuid().jpg
             Files.write(path1, bytes);
-            return toDTO(attachEntity);
+            AttachDto dto = new AttachDto();
+            dto.setId(attachEntity.getId());
+            return dto;
         } catch (IOException e) {
             e.printStackTrace();
         }
