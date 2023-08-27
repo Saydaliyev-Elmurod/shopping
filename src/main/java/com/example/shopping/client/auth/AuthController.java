@@ -27,6 +27,7 @@ public class AuthController {
         return ResponseEntity.ok(authService.emailVerification(jwt));
     }
 
+    @CrossOrigin()
     @PostMapping("login")
     public ResponseEntity<?> login(@RequestBody @Valid AuthDto dto) {
         logger.info(dto.getPassword().toString());

@@ -1,4 +1,5 @@
 package com.example.shopping.config;
+
 import com.example.shopping.util.MD5Util;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -71,7 +72,7 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http.csrf().disable().cors().disable();
+        http.csrf().disable().cors(cors -> cors.disable());
         http.addFilterBefore(tokenFilter, UsernamePasswordAuthenticationFilter.class);
         http.authorizeHttpRequests()
                 .requestMatchers("auth/**").permitAll()
@@ -105,16 +106,15 @@ public class SecurityConfig {
         };
     }
 
-    @Bean
-    public WebMvcConfigurer corsConfigurer() {
-        return new WebMvcConfigurer() {
-            @Override
-            public void addCorsMappings(CorsRegistry registry) {
-                registry.addMapping("/**");
-            }
-        };
-    }
-
+//    @Bean
+//    public WebMvcConfigurer corsConfigurer() {
+//        return new WebMvcConfigurer() {
+//            @Override
+//            public void addCorsMappings(CorsRegistry registry) {
+//                registry.addMapping("/**");
+//            }
+//        };
+//    }
 
 
 }
