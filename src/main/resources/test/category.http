@@ -1,13 +1,13 @@
 ### add category
-POST http://localhost:8080/category/add
-Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJpYXQiOjE2OTE2NTQxNzYsImVtYWlsIjoic2F5ZGFsaXlldmVsbXVyb2QwMUBnbWFpbC5jb20iLCJyb2xlIjoiUk9MRV9VU0VSIiwiZXhwIjoxNjkxNzQwNTc2LCJpc3MiOiJLdW51eiB0ZXN0IHBvcnRhbGkifQ.Wacu0S1TIkPiK36PGbvpQ5gqNHvCrmBU76G0eA3TUBEvgGCOR2-73jKh_10D4PGdqi2WbHYkuGKHYKd_L3KgJA
+POST http://localhost:8080/admin/category/add
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJpYXQiOjE2OTMyMzUxNzAsImVtYWlsIjoiYWRtaW5AZ21haWwuY29tIiwicm9sZSI6IlJPTEVfQURNSU4iLCJleHAiOjE2OTMzMjE1NzAsImlzcyI6Ikt1bnV6IHRlc3QgcG9ydGFsaSJ9.YjU6EDD_oXQFH-o0dKZf29f7t4al5tuwfVVlbLwTulMqeWeZXkYpxAqePMM6Eqi1_fABFLUtPkaqRAW1bc3XwQ
 Content-Type: application/json
 
 {
   "name": {
-    "uz": "Naushnik",
-    "ru": "Ru Naushnik",
-    "eng": "Eng Naushnik"
+    "uz": "Naushnik1",
+    "ru": "Ru Naushnik1",
+    "eng": "Eng Naushnik1"
   }
 }
 

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script>
+        function makeRequest() {
+            var xhttp = new XMLHttpRequest();
+            var userObj = {name: {uz: "Naushnik1",ru: "Ru Naushnik1",eng: "Eng Naushnik1"}};
+            var jsonBody = JSON.stringify(userObj);
+
+            xhttp.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {
+                    document.getElementById("result").innerText = this.responseText;
+                }
+            };
+            xhttp.open("POST", "http://localhost:8080/admin/category/add", true);
+            xhttp.setRequestHeader("Content-Type", "application/json");
+            xhttp.setRequestHeader("Authorization", "Bearer eyJhbGciOiJIUzUxMiJ9.eyJpYXQiOjE2OTMyMzUxNzAsImVtYWlsIjoiYWRtaW5AZ21haWwuY29tIiwicm9sZSI6IlJPTEVfQURNSU4iLCJleHAiOjE2OTMzMjE1NzAsImlzcyI6Ikt1bnV6IHRlc3QgcG9ydGFsaSJ9.YjU6EDD_oXQFH-o0dKZf29f7t4al5tuwfVVlbLwTulMqeWeZXkYpxAqePMM6Eqi1_fABFLUtPkaqRAW1bc3XwQ");
+            xhttp.setRequestHeader("aaaa", "Bearer sss");
+            xhttp.send(jsonBody);
+        }
+
+    </script>
+</head>
+<body>
+
+<h3>Ochiq api dan foydalangan xolda</h3>
+<h6>Post metodidan namuna</h6>
+
+<a href="http://dummy.restapiexample.com/" target="_blank">dummy.restapiexample.com</a> dan foydananamiz.
+<br>
+<h3>User yaratish uchun POST buttonni bosing</h3>
+<button onclick="makeRequest()"> Post </button>
+<div id="result" style="padding: 10px">
+
+</div>
+</body>
+</html>

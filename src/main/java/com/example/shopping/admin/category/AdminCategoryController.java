@@ -17,15 +17,15 @@ import org.springframework.web.bind.annotation.*;
 @Tag(name = "Admin Category APIs ", description = "Admin category all API s")
 @RestController
 @AllArgsConstructor
-@RequestMapping("admin/category")
-@SecurityRequirement(name = "online shop ")
+@RequestMapping("/admin/category")
+//@SecurityRequirement(name = "online shop ")
 public class AdminCategoryController {
     private final CategoryService categoryService;
 
     @Operation(description = " this api use add new category")
     @ApiResponse(responseCode = "200", content = {@Content(schema = @Schema(implementation = CategoryDto.class), mediaType = "application/json")})
     @ApiResponse(responseCode = "400", content = {@Content(schema = @Schema())})
-    @PostMapping("add")
+    @PostMapping("/add")
     public ResponseEntity<?> add(@RequestBody CategoryDto dto) {
         return ResponseEntity.ok(categoryService.add(dto));
     }

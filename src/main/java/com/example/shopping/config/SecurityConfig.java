@@ -9,6 +9,7 @@ import org.springframework.security.authentication.dao.DaoAuthenticationProvider
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
@@ -50,6 +51,8 @@ public class SecurityConfig {
     public static String[] AUTH_WHITELIST = {"/api/v1/*/public/**",
             "/api/v1/auth/**",
             "/api/v1/auth",
+            "/api/v1/auth",
+            "/auth/login",
             "/v2/api-docs",
             "/configuration/ui",
             "/configuration/security",
@@ -71,22 +74,20 @@ public class SecurityConfig {
     }
 
 
-
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http.csrf(csrf->csrf.disable()).cors(cors -> cors.disable());
-        http.addFilterBefore(tokenFilter, UsernamePasswordAuthenticationFilter.class);
-        http.authorizeRequests()
-                .requestMatchers("auth/**").permitAll()
-                .requestMatchers("/**").permitAll()
-                .requestMatchers("auth/login").permitAll()
-                .requestMatchers("admin/**").hasAnyRole("ADMIN")
-                .requestMatchers("attach/open/**").permitAll()
-                .requestMatchers("category/**").permitAll()
-                .requestMatchers("product/**").permitAll()
-                .requestMatchers(AUTH_WHITELIST).permitAll()
-                .anyRequest()
-                .authenticated();
+        http.authorizeHttpRequests(aut -> aut.requestMatchers("auth/**").permitAll()
+                        .requestMatchers("/**").permitAll()
+                        .requestMatchers("auth/login").permitAll()
+                        .requestMatchers("admin/**").hasAnyRole("ADMIN")
+                        .requestMatchers("attach/open/**").permitAll()
+                        .requestMatchers("category/**").permitAll()
+                        .requestMatchers("product/**").permitAll()
+                        .requestMatchers(AUTH_WHITELIST).permitAll()
+                        .anyRequest()
+                        .authenticated())
+                .addFilterBefore(tokenFilter, UsernamePasswordAuthenticationFilter.class);
+        http.csrf(AbstractHttpConfigurer::disable).cors(AbstractHttpConfigurer::disable);
         return http.build();
     }
 
@@ -108,15 +109,15 @@ public class SecurityConfig {
         };
     }
 
-    @Bean
-    public WebMvcConfigurer corsConfigurer() {
-        return new WebMvcConfigurer() {
-            @Override
-            public void addCorsMappings(CorsRegistry registry) {
-                registry.addMapping("/**").allowedOrigins("*").allowedHeaders("*").allowedMethods("*");
-            }
-        };
-    }
+//    @Bean
+//    public WebMvcConfigurer corsConfigurer() {
+//        return new WebMvcConfigurer() {
+//            @Override
+//            public void addCorsMappings(CorsRegistry registry) {
+//                registry.addMapping("/**").allowedOrigins("*").allowedHeaders("*").allowedMethods("*");
+//            }
+//        };
+//    }
 
 
 }
