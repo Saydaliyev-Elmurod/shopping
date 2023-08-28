@@ -61,20 +61,22 @@ public class SecurityConfig {
             "/swagger-resources/**",
     };
 
+
     @Bean
-    public AuthenticationProvider authenticationProvider() {
+    public AuthenticationProvider authenticationProvider(UserDetailsService userDetailsService, PasswordEncoder passwordEncoder) {
         final DaoAuthenticationProvider authenticationProvider = new DaoAuthenticationProvider();
         authenticationProvider.setUserDetailsService(userDetailsService);
-        authenticationProvider.setPasswordEncoder(passwordEncoder());
+        authenticationProvider.setPasswordEncoder(passwordEncoder);
         return authenticationProvider;
     }
 
 
+
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http.csrf().disable().cors(cors -> cors.disable());
+        http.csrf(csrf->csrf.disable()).cors(cors -> cors.disable());
         http.addFilterBefore(tokenFilter, UsernamePasswordAuthenticationFilter.class);
-        http.authorizeHttpRequests()
+        http.authorizeRequests()
                 .requestMatchers("auth/**").permitAll()
                 .requestMatchers("/**").permitAll()
                 .requestMatchers("auth/login").permitAll()
@@ -106,15 +108,15 @@ public class SecurityConfig {
         };
     }
 
-//    @Bean
-//    public WebMvcConfigurer corsConfigurer() {
-//        return new WebMvcConfigurer() {
-//            @Override
-//            public void addCorsMappings(CorsRegistry registry) {
-//                registry.addMapping("/**");
-//            }
-//        };
-//    }
+    @Bean
+    public WebMvcConfigurer corsConfigurer() {
+        return new WebMvcConfigurer() {
+            @Override
+            public void addCorsMappings(CorsRegistry registry) {
+                registry.addMapping("/**").allowedOrigins("*").allowedHeaders("*").allowedMethods("*");
+            }
+        };
+    }
 
 
 }
