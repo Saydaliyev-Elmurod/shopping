@@ -33,8 +33,8 @@ public class AdminCategoryController {
     @ApiResponse(responseCode = "200", content = {@Content(schema = @Schema(implementation = CategoryDto.class))})
     @ApiResponse(responseCode = "404", content = {@Content(schema = @Schema)}, description = "Not found")
     @Operation(description = "get by id for admin get isVisible true or false ")
-    @GetMapping("{id}")
-    public ResponseEntity<?> getAdmin(@PathVariable Integer id) {
+    @GetMapping("/{id}")
+    public ResponseEntity<?> getAdmin(@PathVariable("id") Integer id) {
         return categoryService.getByIdForAdmin(id);
     }
 

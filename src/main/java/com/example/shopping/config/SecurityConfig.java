@@ -53,6 +53,7 @@ public class SecurityConfig {
             "/api/v1/auth",
             "/api/v1/auth",
             "/auth/login",
+            "admin/category/add",
             "/v2/api-docs",
             "/configuration/ui",
             "/configuration/security",
@@ -76,13 +77,13 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http.authorizeHttpRequests(aut -> aut.requestMatchers("auth/**").permitAll()
-                        .requestMatchers("/**").permitAll()
-                        .requestMatchers("auth/login").permitAll()
-                        .requestMatchers("admin/**").hasAnyRole("ADMIN")
-                        .requestMatchers("attach/open/**").permitAll()
-                        .requestMatchers("category/**").permitAll()
-                        .requestMatchers("product/**").permitAll()
+        http.authorizeHttpRequests(aut -> aut.requestMatchers("/auth/**").permitAll()
+//                        .requestMatchers("/**").permitAll()
+//                        .requestMatchers("/auth/login").permitAll()
+//                        .requestMatchers("/admin/**").hasAnyRole("ADMIN")
+//                        .requestMatchers("/attach/open/**").permitAll()
+//                        .requestMatchers("/category/**").permitAll()
+//                        .requestMatchers("/product/**").permitAll()
                         .requestMatchers(AUTH_WHITELIST).permitAll()
                         .anyRequest()
                         .authenticated())
@@ -109,15 +110,15 @@ public class SecurityConfig {
         };
     }
 
-//    @Bean
-//    public WebMvcConfigurer corsConfigurer() {
-//        return new WebMvcConfigurer() {
-//            @Override
-//            public void addCorsMappings(CorsRegistry registry) {
-//                registry.addMapping("/**").allowedOrigins("*").allowedHeaders("*").allowedMethods("*");
-//            }
-//        };
-//    }
+    @Bean
+    public WebMvcConfigurer corsConfigurer() {
+        return new WebMvcConfigurer() {
+            @Override
+            public void addCorsMappings(CorsRegistry registry) {
+                registry.addMapping("/**").allowedOrigins("*").allowedHeaders("*").allowedMethods("*");
+            }
+        };
+    }
 
 
 }
