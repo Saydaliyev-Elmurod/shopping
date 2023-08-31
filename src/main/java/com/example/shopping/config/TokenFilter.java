@@ -38,10 +38,12 @@ import java.util.Arrays;
         protected void doFilterInternal(HttpServletRequest request,
                                         HttpServletResponse response,
                                         FilterChain filterChain) throws ServletException, IOException {
-            System.out.println("doFilter method");
+            System.out.println("before get header");
             final String authHeader = request.getHeader("Authorization");
+            System.out.println("after get header");
 
             if (authHeader == null || !authHeader.startsWith("Bearer ")) {
+                System.out.println("header null");
                 response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
                 response.setHeader("Message", "Token Not Found.");
                 filterChain.doFilter(request, response);

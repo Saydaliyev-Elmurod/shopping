@@ -10,11 +10,13 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.stereotype.Component;
+import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
@@ -28,6 +30,8 @@ public class SecurityConfig {
     private UserDetailsService userDetailsService;
     @Autowired
     private TokenFilter tokenFilter;
+    @Autowired
+    private CorsConfigurationSource corsConfigurationSource;
 
 
     /* @Bean
@@ -77,18 +81,31 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http.authorizeHttpRequests(aut -> aut.requestMatchers("/auth/**").permitAll()
-//                        .requestMatchers("/**").permitAll()
-//                        .requestMatchers("/auth/login").permitAll()
-//                        .requestMatchers("/admin/**").hasAnyRole("ADMIN")
-//                        .requestMatchers("/attach/open/**").permitAll()
-//                        .requestMatchers("/category/**").permitAll()
-//                        .requestMatchers("/product/**").permitAll()
-                        .requestMatchers(AUTH_WHITELIST).permitAll()
+        http
+                .cors(cors -> cors.configurationSource(corsConfigurationSource))
+                .csrf(AbstractHttpConfigurer::disable)
+                .sessionManagement(sessionManagement -> sessionManagement.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                .formLogin(AbstractHttpConfigurer::disable)
+                .httpBasic(AbstractHttpConfigurer::disable)
+                .authorizeHttpRequests(auth -> auth
+                        .requestMatchers("/",
+                                "/error",
+                                "/favicon.ico",
+                                "*.png",
+                                "*.gif",
+                                "*.svg",
+                                "*.jpg",
+                                "*.html",
+                                "*.css",
+                                "*.js")
+                        .permitAll()
+                        .requestMatchers("/auth/**", "/oauth2/**")
+                        .permitAll()
                         .anyRequest()
-                        .authenticated())
-                .addFilterBefore(tokenFilter, UsernamePasswordAuthenticationFilter.class);
-        http.csrf(AbstractHttpConfigurer::disable).cors(AbstractHttpConfigurer::disable);
+                        .authenticated()
+                )
+        ;
+        http.addFilterBefore(tokenFilter, UsernamePasswordAuthenticationFilter.class);
         return http.build();
     }
 

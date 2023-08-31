@@ -83,6 +83,7 @@ public class AuthService {
         responseDTO.setSurname(entity.getSurname());
         responseDTO.setRole(entity.getRole());
         responseDTO.setJwt(JwtUtil.encode(entity.getEmail(), entity.getRole()));
+        System.out.println(responseDTO.getJwt());
         return responseDTO;
     }
 

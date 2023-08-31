@@ -1,6 +1,6 @@
 plugins {
 	java
-	id("org.springframework.boot") version "3.1.2"
+	id("org.springframework.boot") version "3.1.1"
 	id("io.spring.dependency-management") version "1.1.2"
 }
 
@@ -25,7 +25,6 @@ dependencies {
 	implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.1.0")
 	implementation("javax.xml.bind:jaxb-api:2.3.0-b170201.1204")
 	implementation("io.jsonwebtoken:jjwt-api:0.11.5")
-	implementation("io.jsonwebtoken:jjwt:0.9.1")
 	implementation("org.springframework.boot:spring-boot-starter-data-jpa")
 	implementation("org.springframework.boot:spring-boot-starter-mail")
 	implementation("org.springframework.boot:spring-boot-starter-security")

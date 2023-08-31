@@ -1,39 +1,36 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
-    <script>
-        function makeRequest() {
-            var xhttp = new XMLHttpRequest();
-            var userObj = {name: {uz: "Naushnik1",ru: "Ru Naushnik1",eng: "Eng Naushnik1"}};
-            var jsonBody = JSON.stringify(userObj);
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 
-            xhttp.onreadystatechange = function () {
-                if (this.readyState == 4 && this.status == 200) {
-                    document.getElementById("result").innerText = this.responseText;
-                }
-            };
-            xhttp.open("POST", "http://localhost:8080/admin/category/add", true);
-            xhttp.setRequestHeader("Content-Type", "application/json");
-            xhttp.setRequestHeader("Authorization", "Bearer eyJhbGciOiJIUzUxMiJ9.eyJpYXQiOjE2OTMyMzUxNzAsImVtYWlsIjoiYWRtaW5AZ21haWwuY29tIiwicm9sZSI6IlJPTEVfQURNSU4iLCJleHAiOjE2OTMzMjE1NzAsImlzcyI6Ikt1bnV6IHRlc3QgcG9ydGFsaSJ9.YjU6EDD_oXQFH-o0dKZf29f7t4al5tuwfVVlbLwTulMqeWeZXkYpxAqePMM6Eqi1_fABFLUtPkaqRAW1bc3XwQ");
-            xhttp.setRequestHeader("aaaa", "Bearer sda");
-            xhttp.send(jsonBody);
+    <title>Document</title>
+    <style>
+        .col-6 {
+            height: 100vh !important;
         }
-
-    </script>
+    </style>
 </head>
+
 <body>
+    <div class="container">
+        <div class="row  h-100">
+            <div class=" h-100  col-6 m-auto d-flex flex-column aligin-items-center  justify-content-center align-items-center">
+                <h1>Login in</h1>
+                <input type="text" value="admin@gmail.com" class="form-control my-3 email ">
+                <input type="text" value="admin123" class="form-control parol">
+                <button class="btn btn-primary my-5 w-100">POST AUTH</button>
+                <button class="btn btn-danger get  w-100 " > POST C </button>
+                <button class="btn btn-warning getC my-3 w-100 " > GetC </button>
+            </div>
+        </div>
 
-<h3>Ochiq api dan foydalangan xolda</h3>
-<h6>Post metodidan namuna</h6>
+    </div>
 
-<a href="http://dummy.restapiexample.com/" target="_blank">dummy.restapiexample.com</a> dan foydananamiz.
-<br>
-<h3>User yaratish uchun POST buttonni bosing</h3>
-<button onclick="makeRequest()"> Post </button>
-<div id="result" style="padding: 10px">
-
-</div>
+    <script src="./main.js"></script>
 </body>
+
 </html>
