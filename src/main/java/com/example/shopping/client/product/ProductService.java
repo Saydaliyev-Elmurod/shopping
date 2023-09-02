@@ -82,7 +82,7 @@ public class ProductService {
         for (ProductEntity product : pagination.getContent()) {
             dtoList.add(toDto(product));
         }
-        return ResponseEntity.ok(new PageImpl<>(dtoList,pageable,pagination.getTotalElements()));
+        return ResponseEntity.ok(new PageImpl<>(dtoList, pageable, pagination.getTotalElements()));
     }
 
     public ResponseEntity<?> update(ProductDto dto) {
@@ -133,4 +133,7 @@ public class ProductService {
     }
 
 
+//    public ResponseEntity<?> getAllForAdmin(Integer page, Integer size) {
+//        return ResponseEntity.ok().build();
+//    }
 }

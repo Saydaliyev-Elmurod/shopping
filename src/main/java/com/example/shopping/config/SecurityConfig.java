@@ -101,10 +101,12 @@ public class SecurityConfig {
                         .permitAll()
                         .requestMatchers("/auth/**", "/oauth2/**")
                         .permitAll()
+                        .requestMatchers(AUTH_WHITELIST)
+                        .permitAll()
                         .anyRequest()
                         .authenticated()
-                )
-        ;
+                );
+
         http.addFilterBefore(tokenFilter, UsernamePasswordAuthenticationFilter.class);
         return http.build();
     }

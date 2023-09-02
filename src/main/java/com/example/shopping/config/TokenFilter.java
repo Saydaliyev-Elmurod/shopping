@@ -53,6 +53,7 @@ import java.util.Arrays;
             JwtDto jwtDto ;
             try {
                 jwtDto = JwtUtil.decode(token);
+
                 UserDetails userDetails = userDetailsService.loadUserByUsername(jwtDto.getMail());
 
                 UsernamePasswordAuthenticationToken

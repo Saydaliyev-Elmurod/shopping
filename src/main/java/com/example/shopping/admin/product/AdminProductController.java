@@ -46,6 +46,16 @@ public class AdminProductController {
                                   @RequestParam(name = "size", defaultValue = "10") Integer size) {
         return productService.getAllByCategoryForAdmin(cid, page, size);
     }
+//    @Operation(description = " get all product by category id")
+//    @ApiResponse(responseCode = "200", content = {@Content(array = @ArraySchema(schema = @Schema(implementation = ProductDto.class)))})
+//    @ApiResponse(responseCode = "404", description = "Not found")
+////    @GetMapping("")
+
+//    public ResponseEntity<?> list(
+//                                  @RequestParam(name = "page", defaultValue = "1") Integer page,
+//                                  @RequestParam(name = "size", defaultValue = "10") Integer size) {
+//        return productService.getAllForAdmin( page, size);
+//    }
 
     @Operation(description = " get  product by  id")
     @ApiResponse(responseCode = "200", content = {@Content(array = @ArraySchema(schema = @Schema(implementation = ProductDto.class)))})
