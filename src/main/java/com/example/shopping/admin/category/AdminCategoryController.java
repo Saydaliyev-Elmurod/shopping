@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @AllArgsConstructor
 @RequestMapping("/admin/category")
-//@SecurityRequirement(name = "online shop ")
+@SecurityRequirement(name = "online shop ")
 public class AdminCategoryController {
     private final CategoryService categoryService;
 

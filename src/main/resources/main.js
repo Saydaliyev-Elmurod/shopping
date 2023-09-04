@@ -47,7 +47,7 @@ function postP(){
          body:JSON.stringify({image:"rasm"}),
          headers: {
              "Content-Type": "application/json",
-             "Authorization":"Bearer eyJhbGciOiJIUzUxMiJ9.eyJpYXQiOjE2OTM1MDM4MTAsImVtYWlsIjoiYWRtaW5AZ21haWwuY29tIiwicm9sZSI6IlJPTEVfQURNSU4iLCJleHAiOjE2OTM1OTAyMTAsImlzcyI6Ikt1bnV6IHRlc3QgcG9ydGFsaSJ9.DSyoQNXiz6FBSxOJVsq3sVnCrydps-_eYrKGvg2auqbCQxLSsf-NZy5fi_5yLyg7oNf_IG6rhbcOUNJlMpR1rQ\n"
+             "Authorization":"Bearer eyJhbGciOiJIUzUxMiJ9.eyJpYXQiOjE2OTM4MzQwMzUsImVtYWlsIjoiYWRtaW5AZ21haWwuY29tIiwicm9sZSI6IlJPTEVfQURNSU4iLCJleHAiOjE2OTM5MjA0MzUsImlzcyI6Ikt1bnV6IHRlc3QgcG9ydGFsaSJ9.PnmT6gEN0CJR9mUaBHMsIIMpPZWiYxSHMdFZUi9MbyZi4LPGBJmRxCA9cECupLCM-08Hgc-sX8dewmPMI3QaGw\n"
          }
      }).then(res=>res.json()).then(res=>console.log(res))
 }
@@ -71,7 +71,7 @@ getC.addEventListener('click',(e)=>{
         method:"GET",
         headers: {
             "Content-Type": "application/json",
-            "Authorization":"Bearer eyJhbGciOiJIUzUxMiJ9.eyJpYXQiOjE2OTM1MDM4MTAsImVtYWlsIjoiYWRtaW5AZ21haWwuY29tIiwicm9sZSI6IlJPTEVfQURNSU4iLCJleHAiOjE2OTM1OTAyMTAsImlzcyI6Ikt1bnV6IHRlc3QgcG9ydGFsaSJ9.DSyoQNXiz6FBSxOJVsq3sVnCrydps-_eYrKGvg2auqbCQxLSsf-NZy5fi_5yLyg7oNf_IG6rhbcOUNJlMpR1rQ\n"
+            "Authorization":"Bearer eyJhbGciOiJIUzUxMiJ9.eyJpYXQiOjE2OTM4MzQwMzUsImVtYWlsIjoiYWRtaW5AZ21haWwuY29tIiwicm9sZSI6IlJPTEVfQURNSU4iLCJleHAiOjE2OTM5MjA0MzUsImlzcyI6Ikt1bnV6IHRlc3QgcG9ydGFsaSJ9.PnmT6gEN0CJR9mUaBHMsIIMpPZWiYxSHMdFZUi9MbyZi4LPGBJmRxCA9cECupLCM-08Hgc-sX8dewmPMI3QaGw\n"
         }
     }).then(res=>res.json()).then(res=>console.log(res))
 
