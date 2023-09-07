@@ -28,4 +28,12 @@ public interface CategoryRepository extends JpaRepository<CategoryEntity, Intege
             "WHERE id = ?1 ")
     Integer updateVisible(Long id);
 
+    @Query("from CategoryEntity where nameEng ilike ?1 or nameRu ilike ?1 or nameUz ilike ?1")
+    Page<CategoryEntity> search(String name, Pageable pageable);
+
+    @Modifying
+    @Transactional
+    @Query("update CategoryEntity set deleted=true  where id=?1")
+    CategoryEntity delete(Integer id);
+
 }

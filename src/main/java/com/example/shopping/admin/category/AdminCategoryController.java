@@ -2,6 +2,7 @@ package com.example.shopping.admin.category;
 
 
 import com.example.shopping.client.category.CategoryDto;
+import com.example.shopping.client.category.CategoryRequestDto;
 import com.example.shopping.client.category.CategoryService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
@@ -23,10 +24,10 @@ public class AdminCategoryController {
     private final CategoryService categoryService;
 
     @Operation(description = " this api use add new category")
-    @ApiResponse(responseCode = "200", content = {@Content(schema = @Schema(implementation = CategoryDto.class), mediaType = "application/json")})
+    @ApiResponse(responseCode = "200", content = {@Content(schema = @Schema(implementation = CategoryRequestDto.class), mediaType = "application/json")})
     @ApiResponse(responseCode = "400", content = {@Content(schema = @Schema())})
     @PostMapping("/add")
-    public ResponseEntity<?> add(@RequestBody CategoryDto dto) {
+    public ResponseEntity<?> add(@RequestBody CategoryRequestDto dto) {
         return ResponseEntity.ok(categoryService.add(dto));
     }
 
@@ -59,5 +60,22 @@ public class AdminCategoryController {
     @Operation(description = " update visible if visible true set false on the contrary")
     public ResponseEntity<?> updateVisible(@PathVariable Long id) {
         return categoryService.updateVisible(id);
+    }
+
+    @ApiResponse(responseCode = "200", content = {@Content()})
+    @GetMapping("search")
+    @Operation(description = " search category by name")
+    public ResponseEntity<?> search(@RequestParam String search,
+                                    @RequestParam(value = "page", defaultValue = "1") int page,
+                                    @RequestParam(value = "size", defaultValue = "10") int size) {
+        return categoryService.search(search, page, size);
+    }
+
+    @ApiResponse(responseCode = "200", content = {@Content(array = @ArraySchema(schema = @Schema(implementation = CategoryRequestDto.class)))})
+    @ApiResponse(responseCode = "404", content = {@Content(schema = @Schema)}, description = "No content")
+    @PutMapping("/update")
+    @Operation(description = " update category")
+    public ResponseEntity<?> update(@RequestBody CategoryDto dto) {
+        return categoryService.update(dto);
     }
 }

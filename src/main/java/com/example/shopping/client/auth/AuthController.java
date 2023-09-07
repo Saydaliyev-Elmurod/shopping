@@ -27,6 +27,10 @@ public class AuthController {
     public ResponseEntity<?> emailVerification(@PathVariable("jwt") String jwt) {
         return ResponseEntity.ok(authService.emailVerification(jwt));
     }
+    @GetMapping("")
+    public ResponseEntity<?> hello() {
+        return ResponseEntity.ok("Hello Jamshid!!!");
+    }
 
 //    @CrossOrigin()
     @PostMapping("login")

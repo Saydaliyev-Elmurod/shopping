@@ -17,8 +17,14 @@ import java.util.Optional;
 public class CategoryService {
     private final CategoryRepository categoryRepository;
 
-    public CategoryDto add(CategoryDto dto) {
-        CategoryEntity entity = toEntity(dto);
+    public CategoryDto add(CategoryRequestDto dto) {
+        CategoryEntity entity = new CategoryEntity();
+        entity.setImage(dto.getImage());
+        if (null != dto.getName()) {
+            entity.setNameUz(dto.getName().getUz());
+            entity.setNameRu(dto.getName().getRu());
+            entity.setNameEng(dto.getName().getEng());
+        }
         entity.setUserId(SpringSecurityUtil.getProfileId());
         entity.setIsVisible(false);
         return toDto(categoryRepository.save(entity));
@@ -26,9 +32,11 @@ public class CategoryService {
 
     private CategoryEntity toEntity(CategoryDto dto) {
         CategoryEntity entity = new CategoryEntity();
-        entity.setNameEng(dto.getName().getEng());
-        entity.setNameRu(dto.getName().getRu());
-        entity.setNameUz(dto.getName().getUz());
+        if (dto.getName() != null) {
+            entity.setNameEng(dto.getName().getEng());
+            entity.setNameRu(dto.getName().getRu());
+            entity.setNameUz(dto.getName().getUz());
+        }
         entity.setImage(dto.getImage());
         return entity;
     }
@@ -65,7 +73,7 @@ public class CategoryService {
     public ResponseEntity<?> getAllAdmin(int page, int size) {
         Sort sort = Sort.by(Sort.Direction.DESC, "id");
         Pageable paging = PageRequest.of(page - 1, size, sort);
-        Page<CategoryEntity> pageObj = categoryRepository.findAllByDeletedFalse( paging);
+        Page<CategoryEntity> pageObj = categoryRepository.findAllByDeletedFalse(paging);
         long totalCount = pageObj.getTotalElements();
 
         List<CategoryEntity> entityList = pageObj.getContent();
@@ -82,9 +90,8 @@ public class CategoryService {
     public ResponseEntity<?> getAllForUser(int page, int size) {
         Sort sort = Sort.by(Sort.Direction.DESC, "id");
         Pageable paging = PageRequest.of(page - 1, size, sort);
-        Page<CategoryEntity> pageObj = categoryRepository.findByDeletedFalseAndIsVisibleTrue( paging);
+        Page<CategoryEntity> pageObj = categoryRepository.findByDeletedFalseAndIsVisibleTrue(paging);
         long totalCount = pageObj.getTotalElements();
-
         List<CategoryEntity> entityList = pageObj.getContent();
         if (entityList.isEmpty()) {
             return ResponseEntity.ok(HttpStatus.NO_CONTENT);
@@ -97,11 +104,22 @@ public class CategoryService {
     }
 
     public ResponseEntity<?> delete(Integer id) {
-        categoryRepository.deleteById(id);
+        categoryRepository.delete(id);
         return ResponseEntity.ok(HttpStatus.OK);
     }
 
     public ResponseEntity<?> updateVisible(Long id) {
-        return ResponseEntity.ok( categoryRepository.updateVisible(id)==1?HttpStatus.OK:HttpStatus.NOT_FOUND);
+        return ResponseEntity.ok(categoryRepository.updateVisible(id) == 1 ? HttpStatus.OK : HttpStatus.NOT_FOUND);
+    }
+
+    public ResponseEntity<?> search(String name, Integer page, Integer size) {
+        Sort sort = Sort.by(Sort.Direction.DESC, "id");
+        Pageable paging = PageRequest.of(page - 1, size, sort);
+        return ResponseEntity.ok(categoryRepository.search(name, paging));
+    }
+
+    public ResponseEntity<?> update(CategoryDto dto) {
+        CategoryEntity entity = toEntity(dto);
+        return ResponseEntity.ok(categoryRepository.save(entity));
     }
 }

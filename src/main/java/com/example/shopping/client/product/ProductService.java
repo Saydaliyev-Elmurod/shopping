@@ -21,7 +21,7 @@ public class ProductService {
     private final ProductRepository productRepository;
     private final CategoryRepository categoryRepository;
 
-    public ResponseEntity<?> add(ProductDto dto) {
+    public ResponseEntity<?> add(ProductRequestDto dto) {
         if (dto == null) {
             throw new AppBadRequestException(" dto is null ");
         }
@@ -29,6 +29,7 @@ public class ProductService {
             throw new ItemNotFoundException("category not found");
         }
         ProductEntity entity = toEntity(dto);
+        entity.setUserId(SpringSecurityUtil.getProfileId());
         entity.setIsVisible(false);
         entity = productRepository.save(entity);
         return ResponseEntity.ok(toDto(entity));
@@ -75,24 +76,17 @@ public class ProductService {
         Sort sort = Sort.by(Sort.Direction.DESC, "id");
         Pageable pageable = PageRequest.of(page - 1, size, sort);
         Page<ProductEntity> pagination = productRepository.findByCategoryIdAndDeletedFalseAndIsVisibleTrue(cid, pageable);
-        if (pagination.isEmpty()) {
-            return ResponseEntity.ok(HttpStatus.NO_CONTENT);
-        }
-        List<ProductDto> dtoList = new ArrayList<>();
-        for (ProductEntity product : pagination.getContent()) {
-            dtoList.add(toDto(product));
-        }
-        return ResponseEntity.ok(new PageImpl<>(dtoList, pageable, pagination.getTotalElements()));
+        return getResponse(pagination,pageable);
     }
 
-    public ResponseEntity<?> update(ProductDto dto) {
-        if (dto.getId() == null) {
+    public ResponseEntity<?> update(ProductUpdateDto dto) {
+        if (dto == null || dto.getId() == null) {
             ResponseEntity.ok(HttpStatus.BAD_REQUEST);
         }
         ProductEntity entity = toEntity(dto);
         entity.setId(dto.getId());
         entity = productRepository.save(entity);
-        return ResponseEntity.ok(HttpStatus.OK);
+        return ResponseEntity.ok(entity);
     }
 
     public ResponseEntity<?> delete(Integer id) {
@@ -102,15 +96,28 @@ public class ProductService {
 
     public ResponseEntity<?> updateVisible(Integer id) {
         int r = productRepository.updateVisible(id);
-        return ResponseEntity.ok(r == 1);
+        return ResponseEntity.ok(r == 1 ? HttpStatus.OK : HttpStatus.NOT_FOUND);
     }
 
-    private ProductEntity toEntity(ProductDto dto) {
+    private ProductEntity toEntity(ProductRequestDto dto) {
         ProductEntity entity = new ProductEntity();
         entity.setNameEng(dto.getName().getEng());
         entity.setNameRu(dto.getName().getRu());
         entity.setNameUz(dto.getName().getUz());
-        entity.setUserId(SpringSecurityUtil.getProfileId());
+        entity.setCategoryId(dto.getCategoryId());
+        entity.setDescriptionEng(dto.getDescription().getEng());
+        entity.setDescriptionRu(dto.getDescription().getRu());
+        entity.setDescriptionUz(dto.getDescription().getUz());
+        entity.setCost(dto.getCost());
+        entity.setImages(dto.getImages());
+        return entity;
+    }
+
+    private ProductEntity toEntity(ProductUpdateDto dto) {
+        ProductEntity entity = new ProductEntity();
+        entity.setNameEng(dto.getName().getEng());
+        entity.setNameRu(dto.getName().getRu());
+        entity.setNameUz(dto.getName().getUz());
         entity.setCategoryId(dto.getCategoryId());
         entity.setDescriptionEng(dto.getDescription().getEng());
         entity.setDescriptionRu(dto.getDescription().getRu());
@@ -132,8 +139,40 @@ public class ProductService {
         return dto;
     }
 
+    public ResponseEntity<?> getAllAdmin(Integer page, Integer size) {
+        Sort sort = Sort.by(Sort.Direction.DESC, "id");
+        Pageable pageable = PageRequest.of(page - 1, size, sort);
+        Page<ProductEntity> pagination = productRepository.findByDeletedFalse(pageable);
+        return getResponse(pagination, pageable);
+    }
 
-//    public ResponseEntity<?> getAllForAdmin(Integer page, Integer size) {
-//        return ResponseEntity.ok().build();
-//    }
+    public ResponseEntity<?> getAllUser(Integer page, Integer size) {
+        Sort sort = Sort.by(Sort.Direction.DESC, "id");
+        Pageable pageable = PageRequest.of(page - 1, size, sort);
+        Page<ProductEntity> pagination = productRepository.findByDeletedFalseAndIsVisibleTrue(pageable);
+        return getResponse(pagination, pageable);
+    }
+
+    private ResponseEntity<?> getResponse(Page<ProductEntity> pagination, Pageable pageable) {
+        if (pagination.isEmpty()) {
+            return ResponseEntity.ok(HttpStatus.NO_CONTENT);
+        }
+        List<ProductResponseDto> dtoList = new ArrayList<>();
+        for (ProductEntity product : pagination.getContent()) {
+            dtoList.add(toResponse(product));
+        }
+        return ResponseEntity.ok(new PageImpl<>(dtoList, pageable, pagination.getTotalElements()));
+    }
+
+    private ProductResponseDto toResponse(ProductEntity entity) {
+        ProductResponseDto dto = new ProductResponseDto();
+        dto.setId(entity.getId());
+        dto.setCategoryId(entity.getCategoryId());
+        dto.setName(new TextModel(entity.getNameUz(), entity.getNameRu(), entity.getNameEng()));
+        dto.setCost(entity.getCost());
+        dto.setImages(entity.getImages());
+        dto.setIsVisible(entity.getIsVisible());
+        dto.setDescription(new TextModel(entity.getDescriptionUz(), entity.getDescriptionRu(), entity.getDescriptionEng()));
+        return dto;
+    }
 }

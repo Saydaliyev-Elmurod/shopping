@@ -1,7 +1,6 @@
 package com.example.shopping.admin.product;
 
-import com.example.shopping.client.product.ProductDto;
-import com.example.shopping.client.product.ProductService;
+import com.example.shopping.client.product.*;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -22,23 +21,22 @@ public class AdminProductController {
     private final ProductService productService;
 
     @Operation(description = " add new product")
-    @ApiResponse(responseCode = "200")
-    @ApiResponse(responseCode = "404", content = {@Content(schema = @Schema)}, description = "Not found")
+    @ApiResponse(responseCode = "200", content = {@Content(schema = @Schema(implementation = ProductRequestDto.class))})
     @PostMapping({"add"})
-    public ResponseEntity<?> add(@RequestBody ProductDto dto) {
+    public ResponseEntity<?> add(@RequestBody ProductRequestDto dto) {
         return productService.add(dto);
     }
 
     @Operation(description = " update product")
-    @ApiResponse(responseCode = "200")
-    @ApiResponse(responseCode = "404", content = {@Content(schema = @Schema)}, description = "Not found")
+    @ApiResponse(responseCode = "200", content = {@Content(schema = @Schema(implementation = ProductUpdateDto.class))})
+    @ApiResponse(responseCode = "404", description = "Not found")
     @PostMapping("update")
-    public ResponseEntity<?> update(@RequestBody ProductDto dto) {
+    public ResponseEntity<?> update(@RequestBody ProductUpdateDto dto) {
         return productService.update(dto);
     }
 
     @Operation(description = " get all product by category id")
-    @ApiResponse(responseCode = "200", content = {@Content(array = @ArraySchema(schema = @Schema(implementation = ProductDto.class)))})
+    @ApiResponse(responseCode = "200", content = {@Content(array = @ArraySchema(schema = @Schema(implementation = ProductResponseDto.class)))})
     @ApiResponse(responseCode = "404", description = "Not found")
     @GetMapping("")
     public ResponseEntity<?> list(@RequestParam(name = "categoryId") Integer cid,
@@ -46,19 +44,18 @@ public class AdminProductController {
                                   @RequestParam(name = "size", defaultValue = "10") Integer size) {
         return productService.getAllByCategoryForAdmin(cid, page, size);
     }
-//    @Operation(description = " get all product by category id")
-//    @ApiResponse(responseCode = "200", content = {@Content(array = @ArraySchema(schema = @Schema(implementation = ProductDto.class)))})
-//    @ApiResponse(responseCode = "404", description = "Not found")
-////    @GetMapping("")
 
-//    public ResponseEntity<?> list(
-//                                  @RequestParam(name = "page", defaultValue = "1") Integer page,
-//                                  @RequestParam(name = "size", defaultValue = "10") Integer size) {
-//        return productService.getAllForAdmin( page, size);
-//    }
+    @Operation(description = " get all product")
+    @ApiResponse(responseCode = "200", content = {@Content(array = @ArraySchema(schema = @Schema(implementation = ProductResponseDto.class)))})
+    @ApiResponse(responseCode = "404", description = "Not found")
+    @GetMapping("/all")
+    public ResponseEntity<?> all(@RequestParam(name = "page", defaultValue = "1") Integer page,
+                                 @RequestParam(name = "size", defaultValue = "10") Integer size) {
+        return productService.getAllAdmin( page, size);
+    }
 
     @Operation(description = " get  product by  id")
-    @ApiResponse(responseCode = "200", content = {@Content(array = @ArraySchema(schema = @Schema(implementation = ProductDto.class)))})
+    @ApiResponse(responseCode = "200", content = {@Content(array = @ArraySchema(schema = @Schema(implementation = ProductResponseDto.class)))})
     @ApiResponse(responseCode = "404", description = "Not found")
     @GetMapping("{id}")
     public ResponseEntity<?> getById(@PathVariable Integer id) {
