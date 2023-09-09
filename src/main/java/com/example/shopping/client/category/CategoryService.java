@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.io.Serializable;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
@@ -71,9 +72,13 @@ public class CategoryService {
     }
 
     public ResponseEntity<?> getAllAdmin(int page, int size) {
-        Sort sort = Sort.by(Sort.Direction.DESC, "id");
+        Sort sort = Sort.by(Sort.Direction.ASC, "id");
         Pageable paging = PageRequest.of(page - 1, size, sort);
         Page<CategoryEntity> pageObj = categoryRepository.findAllByDeletedFalse(paging);
+        return getResponse(pageObj, paging);
+    }
+
+    private ResponseEntity<?> getResponse(Page<CategoryEntity> pageObj, Pageable paging) {
         long totalCount = pageObj.getTotalElements();
 
         List<CategoryEntity> entityList = pageObj.getContent();
@@ -91,21 +96,11 @@ public class CategoryService {
         Sort sort = Sort.by(Sort.Direction.DESC, "id");
         Pageable paging = PageRequest.of(page - 1, size, sort);
         Page<CategoryEntity> pageObj = categoryRepository.findByDeletedFalseAndIsVisibleTrue(paging);
-        long totalCount = pageObj.getTotalElements();
-        List<CategoryEntity> entityList = pageObj.getContent();
-        if (entityList.isEmpty()) {
-            return ResponseEntity.ok(HttpStatus.NO_CONTENT);
-        }
-        List<CategoryDto> dtoList = new LinkedList<>();
-        for (CategoryEntity entity : entityList) {
-            dtoList.add(toDto(entity));
-        }
-        return ResponseEntity.ok(new PageImpl<>(dtoList, paging, totalCount));
+        return getResponse(pageObj, paging);
     }
 
     public ResponseEntity<?> delete(Integer id) {
-        categoryRepository.delete(id);
-        return ResponseEntity.ok(HttpStatus.OK);
+        return ResponseEntity.ok(categoryRepository.delete(id) == 1 ? HttpStatus.OK : HttpStatus.NOT_FOUND);
     }
 
     public ResponseEntity<?> updateVisible(Long id) {
@@ -115,11 +110,16 @@ public class CategoryService {
     public ResponseEntity<?> search(String name, Integer page, Integer size) {
         Sort sort = Sort.by(Sort.Direction.DESC, "id");
         Pageable paging = PageRequest.of(page - 1, size, sort);
-        return ResponseEntity.ok(categoryRepository.search(name, paging));
+        Page<CategoryEntity> pagination = categoryRepository.search(name, paging);
+        return getResponse(pagination, paging);
     }
 
     public ResponseEntity<?> update(CategoryDto dto) {
+        if (dto == null || dto.getId() == null||dto.getId()<1) {
+            return ResponseEntity.ok(HttpStatus.BAD_REQUEST);
+        }
         CategoryEntity entity = toEntity(dto);
+        entity.setId(dto.getId());
         return ResponseEntity.ok(categoryRepository.save(entity));
     }
 }

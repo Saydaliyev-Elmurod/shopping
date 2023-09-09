@@ -11,6 +11,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 @RestController
 @RequestMapping("/attach")
 @AllArgsConstructor
@@ -18,13 +22,19 @@ public class AttachController {
     private static final String UPLOAD_DIR = "uploads/";
     private final AttachService attachService;
 
+    @PostMapping(value = "/upload", consumes = {
+            "multipart/form-data"
+    })
     @ApiResponse(responseCode = "200", content = {@Content(schema = @Schema(implementation = AttachDto.class))})
-    @Operation(description = "upload file ")
-    @PostMapping("upload")
-    @SecurityRequirement(name = "open")
-    public ResponseEntity<?> upload(@RequestParam("file") MultipartFile file) {
-        AttachDto attachDTO = attachService.save(file);
-        return ResponseEntity.ok().body(attachDTO);
+    @Operation(description = "upload file")
+    @SecurityRequirement(name = "online shop ")
+    public ResponseEntity<?> upload( @RequestPart(required = true) MultipartFile[] files) {
+        List<String> fileNames = new ArrayList<>();
+        Arrays.asList(files).stream().forEach(file -> {
+            AttachDto attachDTO = attachService.save(file);
+            fileNames.add(attachDTO.getId());
+        });
+        return ResponseEntity.ok().body(fileNames);
     }
 
 //    @PostMapping("/upload1")
@@ -59,7 +69,6 @@ public class AttachController {
     @ApiResponse(responseCode = "200")
     @Operation(description = "get image")
     @GetMapping("open/{id}")
-
     public byte[] open(@PathVariable("id") String fileName) {
         return attachService.open(fileName);
     }

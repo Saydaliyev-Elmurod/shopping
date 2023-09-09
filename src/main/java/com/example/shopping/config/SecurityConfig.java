@@ -52,12 +52,8 @@ public class SecurityConfig {
          return authenticationProvider;
      }
  */
-    public static String[] AUTH_WHITELIST = {"/api/v1/*/public/**",
-            "/api/v1/auth/**",
-            "/api/v1/auth",
-            "/api/v1/auth",
+    public static String[] AUTH_WHITELIST = {
             "/auth/login",
-            "admin/category/add",
             "/v2/api-docs",
             "/configuration/ui",
             "/configuration/security",
@@ -99,10 +95,12 @@ public class SecurityConfig {
                                 "*.css",
                                 "*.js")
                         .permitAll()
-                        .requestMatchers("/auth/**", "/oauth2/**")
-                        .permitAll()
                         .requestMatchers(AUTH_WHITELIST)
                         .permitAll()
+                        .requestMatchers("/auth/**", "/oauth2/**","/attach/open/**","/product/**","/category/**")
+                        .permitAll()
+                        .requestMatchers("/admin/**")
+                        .hasAnyRole("ADMIN")
                         .anyRequest()
                         .authenticated()
                 );

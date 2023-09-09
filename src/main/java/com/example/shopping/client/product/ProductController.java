@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.*;
 public class ProductController {
     private final ProductService productService;
 
-    @ApiResponse(responseCode = "200", content = {@Content(array = @ArraySchema(schema = @Schema(implementation = ProductDto.class)))})
+    @ApiResponse(responseCode = "200", content = {@Content(array = @ArraySchema(schema = @Schema(implementation = ProductResponseDto.class)))})
     @ApiResponse(responseCode = "404", description = "Not found")
     @Operation(description = "get all product by category id")
     @GetMapping("")
@@ -27,16 +27,25 @@ public class ProductController {
         return productService.getAllByCategoryForUser(id, page, size);
     }
 
-    @ApiResponse(responseCode = "200", content = {@Content(array = @ArraySchema(schema = @Schema(implementation = ProductDto.class)))})
+    @ApiResponse(responseCode = "200", content = {@Content(array = @ArraySchema(schema = @Schema(implementation = ProductResponseDto.class)))})
     @Operation(description = "get by id  for user")
     @GetMapping("{id}")
-    public ResponseEntity<?> updateStatus(@PathVariable Integer id) {
+    public ResponseEntity<?> getById(@PathVariable Integer id) {
         return productService.getByIdForUser(id);
     }
+//
+//    @ApiResponse(responseCode = "200", content = {@Content(array = @ArraySchema(schema = @Schema(implementation = ProductResponseDto.class)))})
+//    @GetMapping("top")
+//    public ResponseEntity<?> top(@PathVariable Integer id) {
+//        return productService.getByIdForUser(id);
+//    }
 
-    @ApiResponse(responseCode = "200", content = {@Content(array = @ArraySchema(schema = @Schema(implementation = ProductDto.class)))})
-    @GetMapping("top")
-    public ResponseEntity<?> top(@PathVariable Integer id) {
-        return productService.getByIdForUser(id);
+    @Operation(description = " get all product")
+    @ApiResponse(responseCode = "200", content = {@Content(array = @ArraySchema(schema = @Schema(implementation = ProductResponseDto.class)))})
+    @ApiResponse(responseCode = "404", description = "Not found")
+    @GetMapping("/all")
+    public ResponseEntity<?> all(@RequestParam(name = "page", defaultValue = "1") Integer page,
+                                 @RequestParam(name = "size", defaultValue = "10") Integer size) {
+        return productService.getAllUser(page, size);
     }
 }

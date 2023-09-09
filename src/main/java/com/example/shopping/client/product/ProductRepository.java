@@ -37,5 +37,7 @@ interface ProductRepository extends JpaRepository<ProductEntity, Integer> {
             "WHERE id = ?1 ")
     Integer updateVisible(Integer id);
 
+    @Query("from ProductEntity  where deleted = false  and (nameUz ilike CONCAT('%', ?1, '%')  or nameRu ilike CONCAT('%', ?1, '%')  or nameEng ilike CONCAT('%', ?1, '%'))")
+    Page<ProductEntity> search(String search, Pageable pageable);
 
 }

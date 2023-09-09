@@ -75,4 +75,13 @@ public class AdminProductController {
     public ResponseEntity<?> updateVisible(@PathVariable Integer id) {
         return productService.updateVisible(id);
     }
+
+    @ApiResponse(responseCode = "200", content = {@Content()})
+    @GetMapping("search")
+    @Operation(description = " search category by name")
+    public ResponseEntity<?> search(@RequestParam (value = "search") String search,
+                                    @RequestParam(value = "page", defaultValue = "1") int page,
+                                    @RequestParam(value = "size", defaultValue = "10") int size) {
+        return productService.search(search, page, size);
+    }
 }

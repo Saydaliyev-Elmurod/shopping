@@ -65,7 +65,7 @@ public class AdminCategoryController {
     @ApiResponse(responseCode = "200", content = {@Content()})
     @GetMapping("search")
     @Operation(description = " search category by name")
-    public ResponseEntity<?> search(@RequestParam String search,
+    public ResponseEntity<?> search(@RequestParam(value = "search") String search,
                                     @RequestParam(value = "page", defaultValue = "1") int page,
                                     @RequestParam(value = "size", defaultValue = "10") int size) {
         return categoryService.search(search, page, size);

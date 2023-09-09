@@ -12,7 +12,6 @@ public class ProductUpdateDto {
     private Integer id;
     private TextModel name;
     private List<String> images;
-    private Integer categoryId;
     private Double cost;
     private TextModel description;
 }

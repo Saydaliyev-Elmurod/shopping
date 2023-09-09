@@ -76,17 +76,17 @@ public class ProductService {
         Sort sort = Sort.by(Sort.Direction.DESC, "id");
         Pageable pageable = PageRequest.of(page - 1, size, sort);
         Page<ProductEntity> pagination = productRepository.findByCategoryIdAndDeletedFalseAndIsVisibleTrue(cid, pageable);
-        return getResponse(pagination,pageable);
+        return getResponse(pagination, pageable);
     }
 
     public ResponseEntity<?> update(ProductUpdateDto dto) {
-        if (dto == null || dto.getId() == null) {
+        if (dto == null || dto.getId() == null || dto.getId() < 1) {
             ResponseEntity.ok(HttpStatus.BAD_REQUEST);
         }
-        ProductEntity entity = toEntity(dto);
+        ProductEntity entity = toUpdate(dto);
         entity.setId(dto.getId());
         entity = productRepository.save(entity);
-        return ResponseEntity.ok(entity);
+        return ResponseEntity.ok(toResponse(entity));
     }
 
     public ResponseEntity<?> delete(Integer id) {
@@ -113,12 +113,11 @@ public class ProductService {
         return entity;
     }
 
-    private ProductEntity toEntity(ProductUpdateDto dto) {
+    private ProductEntity toUpdate(ProductUpdateDto dto) {
         ProductEntity entity = new ProductEntity();
         entity.setNameEng(dto.getName().getEng());
         entity.setNameRu(dto.getName().getRu());
         entity.setNameUz(dto.getName().getUz());
-        entity.setCategoryId(dto.getCategoryId());
         entity.setDescriptionEng(dto.getDescription().getEng());
         entity.setDescriptionRu(dto.getDescription().getRu());
         entity.setDescriptionUz(dto.getDescription().getUz());
@@ -174,5 +173,12 @@ public class ProductService {
         dto.setIsVisible(entity.getIsVisible());
         dto.setDescription(new TextModel(entity.getDescriptionUz(), entity.getDescriptionRu(), entity.getDescriptionEng()));
         return dto;
+    }
+
+    public ResponseEntity<?> search(String search, int page, int size) {
+        Sort sort = Sort.by(Sort.Direction.DESC, "id");
+        Pageable pageable = PageRequest.of(page - 1, size, sort);
+        Page<ProductEntity> pagination = productRepository.search(search, pageable);
+        return getResponse(pagination, pageable);
     }
 }

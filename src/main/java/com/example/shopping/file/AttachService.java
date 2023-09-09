@@ -34,7 +34,7 @@ public class AttachService {
     @Value("${server.host}")
     private String domainName;
 
-    public AttachDto save(MultipartFile file) {
+    public AttachDto save(MultipartFile  file) {
         try {
             String pathFolder = getYmDString(); // 2022/04/23
             File folder = new File(path + "/" + folderName + "/" + pathFolder);  // attaches/2023/04/26
