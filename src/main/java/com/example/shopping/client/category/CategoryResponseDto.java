@@ -10,4 +10,6 @@ public class CategoryResponseDto {
     private TextModel name;
     private String image;
     private Boolean isVisible;
+
+
 }

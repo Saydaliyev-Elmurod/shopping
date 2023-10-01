@@ -1,5 +1,6 @@
 package com.example.shopping.client.product;
 
+import com.example.shopping.client.category.CategoryDto;
 import com.example.shopping.client.category.CategoryEntity;
 import com.example.shopping.client.profile.ProfileEntity;
 import com.example.shopping.util.TextModel;
@@ -14,7 +15,7 @@ public class ProductResponseDto {
     private Integer id;
     private TextModel name;
     private List<String> images;
-    private Integer categoryId;
+    private CategoryDto category;
     private Double cost;
     private Boolean isVisible;
     private TextModel description;

@@ -71,7 +71,7 @@ public class AdminProductController {
 
     @Operation(description = " update visible")
     @ApiResponse(responseCode = "200")
-    @PutMapping("visible/{id}")
+    @GetMapping("visible/{id}")
     public ResponseEntity<?> updateVisible(@PathVariable Integer id) {
         return productService.updateVisible(id);
     }

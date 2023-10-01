@@ -15,4 +15,14 @@ public class CategoryDto {
     private TextModel name;
     private String image;
     private Boolean isVisible;
+
+    public CategoryDto(Integer id, String image, TextModel name, Boolean isVisible) {
+        this.name = name;
+        this.id=id;
+        this.image = image;
+        this.isVisible = isVisible;
+    }
+
+    public CategoryDto() {
+    }
 }

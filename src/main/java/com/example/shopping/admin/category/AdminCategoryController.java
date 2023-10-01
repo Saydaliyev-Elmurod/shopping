@@ -56,7 +56,7 @@ public class AdminCategoryController {
     }
 
     @ApiResponse(responseCode = "200", content = {@Content()})
-    @PutMapping("visible/{id}")
+    @GetMapping("visible/{id}")
     @Operation(description = " update visible if visible true set false on the contrary")
     public ResponseEntity<?> updateVisible(@PathVariable Long id) {
         return categoryService.updateVisible(id);

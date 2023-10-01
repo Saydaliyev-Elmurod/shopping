@@ -28,7 +28,7 @@ public class ProductEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", insertable = false, updatable = false)
     private ProfileEntity profile;
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "category_id", insertable = false, updatable = false)
     private CategoryEntity category;
     @Column(name = "category_id")

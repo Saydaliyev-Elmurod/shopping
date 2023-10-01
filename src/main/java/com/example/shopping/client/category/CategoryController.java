@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("category")
 public class CategoryController {
     private final CategoryService categoryService;
-    @ApiResponse(responseCode = "200", content = {@Content(schema = @Schema(implementation = CategoryResponseDto.class))})
+    @ApiResponse(responseCode = "200", content = {@Content(schema = @Schema(implementation = CategoryDto.class))})
     @ApiResponse(responseCode = "404", content = {@Content(schema = @Schema)}, description = "Not found")
     @Operation(description = "get by id for user get isVisible true")
     @GetMapping("/{id}")
@@ -28,7 +28,7 @@ public class CategoryController {
 
 
 
-    @ApiResponse(responseCode = "200", content = {@Content(array = @ArraySchema(schema = @Schema(implementation = CategoryResponseDto.class)))})
+    @ApiResponse(responseCode = "200", content = {@Content(array = @ArraySchema(schema = @Schema(implementation = CategoryDto.class)))})
     @ApiResponse(responseCode = "404", content = {@Content(schema = @Schema)}, description = "No content")
     @Operation(description = "get all category by user (get only isVisible true))")
     @GetMapping("all")

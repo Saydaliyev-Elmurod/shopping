@@ -1,6 +1,8 @@
 package com.example.shopping.client.product;
 
+import com.example.shopping.client.category.CategoryDto;
 import com.example.shopping.client.category.CategoryEntity;
+import com.example.shopping.client.category.CategoryResponseDto;
 import com.example.shopping.client.profile.ProfileEntity;
 import com.example.shopping.util.TextModel;
 import lombok.Getter;
@@ -16,8 +18,7 @@ public class ProductDto {
     private Integer userId;
 
     private List<String> images;
-    private ProfileEntity profile;
-    private CategoryEntity category;
+    private CategoryDto category;
     private Integer categoryId;
     private Double cost;
     private Boolean isVisible;

@@ -1,6 +1,9 @@
 package com.example.shopping.client.product;
 
+import com.example.shopping.client.category.CategoryDto;
+import com.example.shopping.client.category.CategoryEntity;
 import com.example.shopping.client.category.CategoryRepository;
+import com.example.shopping.client.category.CategoryResponseDto;
 import com.example.shopping.exp.AppBadRequestException;
 import com.example.shopping.exp.ItemNotFoundException;
 import com.example.shopping.util.SpringSecurityUtil;
@@ -65,7 +68,7 @@ public class ProductService {
         if (pagination.isEmpty()) {
             return ResponseEntity.ok(HttpStatus.NO_CONTENT);
         }
-        List<ProductDto> dtoList = new ArrayList<>();
+        List<ProductResponseDto> dtoList = new ArrayList<>();
         for (ProductEntity product : pagination.getContent()) {
             dtoList.add(toDto(product));
         }
@@ -115,24 +118,30 @@ public class ProductService {
 
     private ProductEntity toUpdate(ProductUpdateDto dto) {
         ProductEntity entity = new ProductEntity();
-        entity.setNameEng(dto.getName().getEng());
-        entity.setNameRu(dto.getName().getRu());
-        entity.setNameUz(dto.getName().getUz());
-        entity.setDescriptionEng(dto.getDescription().getEng());
-        entity.setDescriptionRu(dto.getDescription().getRu());
-        entity.setDescriptionUz(dto.getDescription().getUz());
+        if(dto.getName()!=null){
+            entity.setNameEng(dto.getName().getEng());
+            entity.setNameRu(dto.getName().getRu());
+            entity.setNameUz(dto.getName().getUz());
+        }
+       if(dto.getDescription()!=null){
+           entity.setDescriptionEng(dto.getDescription().getEng());
+           entity.setDescriptionRu(dto.getDescription().getRu());
+           entity.setDescriptionUz(dto.getDescription().getUz());
+       }
         entity.setCost(dto.getCost());
         entity.setImages(dto.getImages());
         return entity;
     }
 
-    private ProductDto toDto(ProductEntity entity) {
-        ProductDto dto = new ProductDto();
+    private ProductResponseDto toDto(ProductEntity entity) {
+        ProductResponseDto dto = new ProductResponseDto();
         dto.setId(entity.getId());
-        dto.setCategoryId(entity.getCategoryId());
         dto.setName(new TextModel(entity.getNameUz(), entity.getNameRu(), entity.getNameEng()));
         dto.setCost(entity.getCost());
         dto.setImages(entity.getImages());
+        if(entity.getCategory()!=null){
+            dto.setCategory(new CategoryDto(entity.getCategory().getId(),entity.getCategory().getImage(),new TextModel(entity.getNameUz(), entity.getNameRu(), entity.getNameEng()),entity.getCategory().getIsVisible()));
+        }
         dto.setIsVisible(entity.getIsVisible());
         dto.setDescription(new TextModel(entity.getDescriptionUz(), entity.getDescriptionRu(), entity.getDescriptionEng()));
         return dto;
@@ -166,9 +175,11 @@ public class ProductService {
     private ProductResponseDto toResponse(ProductEntity entity) {
         ProductResponseDto dto = new ProductResponseDto();
         dto.setId(entity.getId());
-        dto.setCategoryId(entity.getCategoryId());
         dto.setName(new TextModel(entity.getNameUz(), entity.getNameRu(), entity.getNameEng()));
         dto.setCost(entity.getCost());
+        if(entity.getCategory()!=null){
+            dto.setCategory(new CategoryDto(entity.getCategory().getId(),entity.getCategory().getImage(),new TextModel(entity.getNameUz(), entity.getNameRu(), entity.getNameEng()),entity.getCategory().getIsVisible()));
+        }
         dto.setImages(entity.getImages());
         dto.setIsVisible(entity.getIsVisible());
         dto.setDescription(new TextModel(entity.getDescriptionUz(), entity.getDescriptionRu(), entity.getDescriptionEng()));

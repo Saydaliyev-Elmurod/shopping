@@ -17,13 +17,13 @@ public class ApiConfig {
     @Bean
     public OpenAPI myOpenAPI() {
         Server devServer = new Server();
-        devServer.setUrl(url);
-        devServer.setDescription("Server URL");
+        devServer.url(url);
+        devServer.description("Server URL");
 
         Contact contact = new Contact();
-        contact.setEmail("kun.uz");
-        contact.setName("BezKoder");
-        contact.setUrl("https://www.bezkoder.com");
+        contact.email("kun.uz");
+        contact.name("BezKoder");
+        contact.url("https://www.bezkoder.com");
 
 
         Info info = new Info()
